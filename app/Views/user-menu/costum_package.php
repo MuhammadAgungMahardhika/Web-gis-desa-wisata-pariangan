@@ -155,25 +155,25 @@
                                 </div>
                             </div>
 
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title text-center">Detail package</h4>
 
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title text-center">Detail package</h4>
+                                    <input type="hidden" required id="checkDetailPackage">
+                                </div>
+                                <div class="card-body">
+                                    <button type="button" onclick="openPackageDayModal(`${noDay}`)" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#modalPackage"> New package day
+                                    </button>
 
-                                        <input type="hidden" required id="checkDetailPackage">
-                                    </div>
-                                    <div class="card-body">
-                                        <button type="button" onclick="openPackageDayModal(`${noDay}`)" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#modalPackage"> New package day
-                                        </button>
-
-                                        <div class="p-4" id="package-day-container">
-                                            <?php $noDay = 1; ?>
-                                        </div>
+                                    <div class="p-4" id="package-day-container">
+                                        <?php $noDay = 1; ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>

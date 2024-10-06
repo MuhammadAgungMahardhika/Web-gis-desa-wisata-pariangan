@@ -351,7 +351,8 @@ class packageController extends BaseController
             // 'homestayData' => $homestayData,
             'packageDayData' => $packageDay,
             'objectData' => $objectData,
-            'serviceData' => $serviceData
+            'serviceData' => $serviceData,
+            'parianganData' => $this->modelPariangan->getPariangan()
         ];
         return view('user-menu/costum_existing_package', $data);
     }
