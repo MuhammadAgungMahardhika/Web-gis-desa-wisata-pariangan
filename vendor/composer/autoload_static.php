@@ -29,7 +29,6 @@ class ComposerStaticInit35775098919ef7a5be0fd1ce030b73b6
         ),
         'M' => 
         array (
-            'Myth\\Auth\\' => 10,
             'Masterminds\\' => 12,
         ),
         'L' => 
@@ -82,10 +81,6 @@ class ComposerStaticInit35775098919ef7a5be0fd1ce030b73b6
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
-        ),
-        'Myth\\Auth\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/myth/auth/src',
         ),
         'Masterminds\\' => 
         array (

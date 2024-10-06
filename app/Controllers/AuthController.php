@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+
 class AuthController extends BaseController
 {
     // Masuk halaman login
