@@ -28,7 +28,7 @@ CREATE TABLE `atraction` (
   `category_atraction_id` varchar(2) NOT NULL,
   `open` time DEFAULT NULL,
   `close` time DEFAULT NULL,
-  `price` int DEFAULT NULL,
+  `price` int DEFAULT '0',
   `employe` varchar(25) DEFAULT NULL,
   `contact_person` varchar(13) DEFAULT NULL,
   `description` text,
@@ -47,7 +47,7 @@ CREATE TABLE `atraction` (
 
 LOCK TABLES `atraction` WRITE;
 /*!40000 ALTER TABLE `atraction` DISABLE KEYS */;
-INSERT INTO `atraction` VALUES ('01','Kuburan Panjang DT Tantejo','1','06:00:00','18:00:00',10000,'Pokdarwis Pariangan','082284978004','The length of this grave is around 24-25 m, based on the experience of the community and visitors who have measured the length of this grave, the results always change, sometimes it is 24, sometimes 25 m. The body that rests in this grave is Tantejo Gurhano, he was the one who first came up with the idea of ‚Äã‚Äãbuilding a bagonjoang house inspired by a boat that had sharp corners at both ends. Tantejo Gurhano is thought to have lived during the Hindu-Buddhist era, when she died her body was burned according to Hindu-Buddhist religious rituals and her ashes were scattered throughout this cemetery area.',NULL,_binary '\0\0\0\0\0\0\0Ú9^ûY@e/Œå]›ø',NULL),('02','Batu Agam','1','00:00:00','23:59:00',150000,'Pokdarwis Pariangan','082284978004','Agam stone is one of the relics in Pariangan which is included in the 3 sajarangan stones, where the agam stone is directed towards the agam area',NULL,_binary '\0\0\0\0\0\0\0åaÄY@ë$ÙLR›ø',NULL),('03','Batu 50 Kota','1','00:00:00','23:59:00',NULL,'Pokdarwis Pariangan','082284978004','The 50 Kota Stone is one of the relics in Pariangan which is included in the 3 Saurangan Stones, where the 50 Kota stones point towards the 50 Kota area.',NULL,_binary '\0\0\0\0\0\0\08ö+úáY@®Çõ÷∑]›ø',NULL),('04','Batu Tanah Datar','1','00:00:00','23:59:00',NULL,'Pokdarwis Pariangan','082284978004','The Tanah Datar Stone is one of the relics in Pariangan which is included in the 3 Sajarangan Stones, where the Tanah Datar stones point towards the Tanah Datar area.',NULL,_binary '\0\0\0\0\0\0\0\Èı\ƒ\∆~Y@†¿}\«^›ø',NULL),('05','Masjid Islah','1','03:00:00','21:00:00',NULL,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0ˆJì1ÇY@@≠X≤V›ø',NULL),('06','Tabuah Larangan','2','00:00:00','23:59:00',NULL,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0\ÓërúÄY@ªi\n\œZ›ø',NULL),('07','Panorama Pariangan','2','06:00:00','22:00:00',NULL,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0AaíY@ød°•Ñ‹ø',NULL),('08','Surau Bandaro Kayo','2','03:00:00','21:00:00',NULL,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0*çw\À~Y@ê≥∏fU›ø',NULL),('09','Surau Sampono Kayo','2','03:00:00','21:00:00',NULL,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0\È5\Í\ﬂ}Y@\·ó˙ySQ›ø',NULL),('10','Surau Suri Maharajo','2','03:00:00','21:00:00',NULL,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0\‚;îÅY@ˆl\ \”¡S›ø',NULL),('11','Surau Melayu','2','03:00:00','21:00:00',NULL,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0∞à\Œ~Y@˜\€«ü\‚W›ø',NULL),('12','Surau Inyiak Janna','2','03:00:00','21:00:00',NULL,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0_*”ªzY@\Ô8fU[\\›ø',NULL);
+INSERT INTO `atraction` VALUES ('01','Kuburan Panjang DT Tantejo','1','06:00:00','18:00:00',10000,'Pokdarwis Pariangan','082284978004','The length of this grave is around 24-25 m, based on the experience of the community and visitors who have measured the length of this grave, the results always change, sometimes it is 24, sometimes 25 m. The body that rests in this grave is Tantejo Gurhano, he was the one who first came up with the idea of ‚Äã‚Äãbuilding a bagonjoang house inspired by a boat that had sharp corners at both ends. Tantejo Gurhano is thought to have lived during the Hindu-Buddhist era, when she died her body was burned according to Hindu-Buddhist religious rituals and her ashes were scattered throughout this cemetery area.',NULL,_binary '\0\0\0\0\0\0\0Ú9^ûY@e/Œå]›ø',NULL),('02','Batu Agam','1','00:00:00','23:59:00',150000,'Pokdarwis Pariangan','082284978004','Agam stone is one of the relics in Pariangan which is included in the 3 sajarangan stones, where the agam stone is directed towards the agam area',NULL,_binary '\0\0\0\0\0\0\0åaÄY@ë$ÙLR›ø',NULL),('03','Batu 50 Kota','1','00:00:00','23:59:00',0,'Pokdarwis Pariangan','082284978004','The 50 Kota Stone is one of the relics in Pariangan which is included in the 3 Saurangan Stones, where the 50 Kota stones point towards the 50 Kota area.',NULL,_binary '\0\0\0\0\0\0\08ö+úáY@®Çõ÷∑]›ø',NULL),('04','Batu Tanah Datar','1','00:00:00','23:59:00',0,'Pokdarwis Pariangan','082284978004','The Tanah Datar Stone is one of the relics in Pariangan which is included in the 3 Sajarangan Stones, where the Tanah Datar stones point towards the Tanah Datar area.',NULL,_binary '\0\0\0\0\0\0\0\Èı\ƒ\∆~Y@†¿}\«^›ø',NULL),('05','Masjid Islah','1','03:00:00','21:00:00',0,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0ˆJì1ÇY@@≠X≤V›ø',NULL),('06','Tabuah Larangan','2','00:00:00','23:59:00',0,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0\ÓërúÄY@ªi\n\œZ›ø',NULL),('07','Panorama Pariangan','2','06:00:00','22:00:00',0,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0AaíY@ød°•Ñ‹ø',NULL),('08','Surau Bandaro Kayo','2','03:00:00','21:00:00',0,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0*çw\À~Y@ê≥∏fU›ø',NULL),('09','Surau Sampono Kayo','2','03:00:00','21:00:00',0,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0\È5\Í\ﬂ}Y@\·ó˙ySQ›ø',NULL),('10','Surau Suri Maharajo','2','03:00:00','21:00:00',0,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0\‚;îÅY@ˆl\ \”¡S›ø',NULL),('11','Surau Melayu','2','03:00:00','21:00:00',0,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0∞à\Œ~Y@˜\€«ü\‚W›ø',NULL),('12','Surau Inyiak Janna','2','03:00:00','21:00:00',0,'Nagari Tuo Pariangan',NULL,NULL,NULL,_binary '\0\0\0\0\0\0\0_*”ªzY@\Ô8fU[\\›ø',NULL);
 /*!40000 ALTER TABLE `atraction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -513,7 +513,7 @@ CREATE TABLE `detail_package` (
 
 LOCK TABLES `detail_package` WRITE;
 /*!40000 ALTER TABLE `detail_package` DISABLE KEYS */;
-INSERT INTO `detail_package` VALUES ('02','1','1','H','H2','Visit Homestay Datuak Rajo Paduko'),('03','1','1','H','H01','Visit Homestay Angku bandaharo kayo'),('03','1','2','A','A07','Visit Panorama Pariangan'),('03','1','3','A','A01','Visit Kuburan Panjang DT Tantejo'),('03','1','4','A','A02','Visit Batu Agam'),('03','1','5','A','A03','Visit Batu 50 Kota'),('03','1','6','A','A04','Visit Batu Tanah Datar'),('03','1','7','C','C02','Visit Kadai Rafli'),('03','1','8','H','H01','Visit Homestay Angku bandaharo kayo'),('03','2','1','H','H01','Visit Homestay Angku bandaharo kayo'),('03','2','2','A','A05','Visit Masjid Islah'),('03','2','3','A','A08','Visit Surau Bandaro Kayo'),('03','2','4','A','A10','Visit Surau Suri Maharajo'),('03','2','5','A','A11','Visit Surau Melayu'),('03','2','6','C','C05','Visit Kadai Gudester'),('03','2','7','S','S01','Visit Gallery Seni'),('03','2','8','H','H01','Visit Homestay Angku bandaharo kayo'),('04','1','1','H','H2','Visit Homestay Datuak Rajo Paduko'),('04','1','2','A','A07','Visit Panorama Pariangan'),('04','1','3','A','A01','Visit Kuburan Panjang DT Tantejo'),('04','1','4','A','A02','Visit Batu Agam'),('04','1','5','A','A03','Visit Batu 50 Kota'),('04','1','6','A','A04','Visit Batu Tanah Datar'),('04','1','7','C','C02','Visit Kadai Rafli'),('04','1','8','H','H2','Visit Homestay Datuak Rajo Paduko'),('04','2','1','H','H2','Visit Homestay Datuak Rajo Paduko'),('04','2','2','A','A05','Visit Masjid Islah'),('04','2','3','A','A08','Visit Surau Bandaro Kayo'),('04','2','4','A','A10','Visit Surau Suri Maharajo'),('04','2','5','A','A11','Visit Surau Melayu'),('04','2','6','A','A06','Visit Tabuah Larangan'),('04','2','7','C','C03','Visit Kadai Hadis'),('04','2','8','S','S01','Visit Gallery Seni'),('04','2','9','H','H2','Visit Homestay Datuak Rajo Paduko'),('05','1','1','A','A01','Visit Kuburan Panjang DT Tantejo'),('05','1','2','A','A11','Visit Surau Melayu'),('05','1','3','A','A02','Visit Batu Agam'),('05','1','4','A','A12','Visit Surau Inyiak Janna'),('05','1','5','H','H3','Visit Homestay Umega'),('06','1','1','H','H01','Visit Homestay Angku bandaharo kayo'),('06','1','2','A','A07','Visit Panorama Pariangan'),('06','1','3','A','A01','Visit Kuburan Panjang DT Tantejo'),('06','1','4','A','A02','Visit Batu Agam'),('06','1','5','A','A03','Visit Batu 50 Kota'),('06','1','6','A','A04','Visit Batu Tanah Datar'),('06','1','7','C','C02','Visit Kadai Rafli'),('06','1','8','H','H01','Visit Homestay Angku bandaharo kayo'),('06','2','1','H','H01','Visit Homestay Angku bandaharo kayo'),('06','2','2','A','A05','Visit Masjid Islah'),('06','2','3','A','A08','Visit Surau Bandaro Kayo'),('06','2','4','A','A10','Visit Surau Suri Maharajo'),('06','2','5','A','A11','Visit Surau Melayu'),('06','2','6','C','C05','Visit Kadai Gudester'),('06','2','7','S','S01','Visit Gallery Seni'),('06','2','8','H','H01','Visit Homestay Angku bandaharo kayo'),('06','3','1','A','A03','Visit Batu 50 Kota'),('06','3','2','A','A09','Visit Surau Sampono Kayo'),('07','1','1','A','A01','Visit Kuburan Panjang DT Tantejo');
+INSERT INTO `detail_package` VALUES ('02','1','1','H','H2','Visit Homestay Datuak Rajo Paduko'),('03','1','1','H','H01','Visit Homestay Angku bandaharo kayo'),('03','1','2','A','A07','Visit Panorama Pariangan'),('03','1','3','A','A01','Visit Kuburan Panjang DT Tantejo'),('03','1','4','A','A02','Visit Batu Agam'),('03','1','5','A','A03','Visit Batu 50 Kota'),('03','1','6','A','A04','Visit Batu Tanah Datar'),('03','1','7','C','C02','Visit Kadai Rafli'),('03','1','8','H','H01','Visit Homestay Angku bandaharo kayo'),('03','2','1','H','H01','Visit Homestay Angku bandaharo kayo'),('03','2','2','A','A05','Visit Masjid Islah'),('03','2','3','A','A08','Visit Surau Bandaro Kayo'),('03','2','4','A','A10','Visit Surau Suri Maharajo'),('03','2','5','A','A11','Visit Surau Melayu'),('03','2','6','C','C05','Visit Kadai Gudester'),('03','2','7','S','S01','Visit Gallery Seni'),('03','2','8','H','H01','Visit Homestay Angku bandaharo kayo'),('04','1','1','H','H2','Visit Homestay Datuak Rajo Paduko'),('04','1','2','A','A07','Visit Panorama Pariangan'),('04','1','3','A','A01','Visit Kuburan Panjang DT Tantejo'),('04','1','4','A','A02','Visit Batu Agam'),('04','1','5','A','A03','Visit Batu 50 Kota'),('04','1','6','A','A04','Visit Batu Tanah Datar'),('04','1','7','C','C02','Visit Kadai Rafli'),('04','1','8','H','H2','Visit Homestay Datuak Rajo Paduko'),('04','2','1','H','H2','Visit Homestay Datuak Rajo Paduko'),('04','2','2','A','A05','Visit Masjid Islah'),('04','2','3','A','A08','Visit Surau Bandaro Kayo'),('04','2','4','A','A10','Visit Surau Suri Maharajo'),('04','2','5','A','A11','Visit Surau Melayu'),('04','2','6','A','A06','Visit Tabuah Larangan'),('04','2','7','C','C03','Visit Kadai Hadis'),('04','2','8','S','S01','Visit Gallery Seni'),('04','2','9','H','H2','Visit Homestay Datuak Rajo Paduko'),('05','1','1','A','A01','Visit Kuburan Panjang DT Tantejo'),('05','1','2','A','A11','Visit Surau Melayu'),('05','1','3','A','A02','Visit Batu Agam'),('05','1','4','A','A12','Visit Surau Inyiak Janna'),('05','1','5','H','H3','Visit Homestay Umega'),('06','1','1','H','H01','Visit Homestay Angku bandaharo kayo'),('06','1','2','A','A07','Visit Panorama Pariangan'),('06','1','3','A','A01','Visit Kuburan Panjang DT Tantejo'),('06','1','4','A','A02','Visit Batu Agam'),('06','1','5','A','A03','Visit Batu 50 Kota'),('06','1','6','A','A04','Visit Batu Tanah Datar'),('06','1','7','C','C02','Visit Kadai Rafli'),('06','1','8','H','H01','Visit Homestay Angku bandaharo kayo'),('06','2','1','H','H01','Visit Homestay Angku bandaharo kayo'),('06','2','2','A','A05','Visit Masjid Islah'),('06','2','3','A','A08','Visit Surau Bandaro Kayo'),('06','2','4','A','A10','Visit Surau Suri Maharajo'),('06','2','5','A','A11','Visit Surau Melayu'),('06','2','6','C','C05','Visit Kadai Gudester'),('06','2','7','S','S01','Visit Gallery Seni'),('06','2','8','H','H01','Visit Homestay Angku bandaharo kayo'),('06','3','1','A','A03','Visit Batu 50 Kota'),('06','3','2','A','A09','Visit Surau Sampono Kayo'),('07','1','1','A','A01','Visit Kuburan Panjang DT Tantejo'),('08','1','1','A','A02','Visit Batu Agam');
 /*!40000 ALTER TABLE `detail_package` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -583,7 +583,7 @@ DROP TABLE IF EXISTS `event`;
 CREATE TABLE `event` (
   `id` varchar(2) NOT NULL,
   `name` varchar(25) NOT NULL,
-  `price` int DEFAULT NULL,
+  `price` int DEFAULT '0',
   `contact_person` varchar(13) DEFAULT NULL,
   `date_start` date DEFAULT NULL,
   `date_end` date DEFAULT NULL,
@@ -873,7 +873,7 @@ DROP TABLE IF EXISTS `package`;
 CREATE TABLE `package` (
   `id` varchar(2) NOT NULL,
   `name` varchar(25) NOT NULL,
-  `price` int DEFAULT NULL,
+  `price` int DEFAULT '0',
   `capacity` int DEFAULT NULL,
   `cp` varchar(13) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `description` text,
@@ -890,7 +890,7 @@ CREATE TABLE `package` (
 
 LOCK TABLES `package` WRITE;
 /*!40000 ALTER TABLE `package` DISABLE KEYS */;
-INSERT INTO `package` VALUES ('02','Makan Bajamba',200000,10,'082284978004','Makan bajamba is eating together in one container in the Rumah Gadang','1704445810_39e32a244e0188acf606.jpg',2,NULL),('03','2 Hari 1 Malam Solo',350000,1,'082284978004','This package provides an offer for tourists who want to travel to the Nagari Tuo Pariangan village for 2 days and one night, which guarantees that tourists will not feel lonely.','1704446598_077eda6497541fd1b44c.png',2,NULL),('04','2 Hari 1 Malam Group',800000,10,'082284978004','This package provides an offer for tourists who want to travel to the Nagari Tuo Pariangan village for 2 days and one night, which guarantees that tourists will not feel lonely.','1704446263_3d38b3f55a5fdb1676e0.png',2,NULL),('05','Costume Package By -user1',290000,1,NULL,NULL,'costum_package.jpg',1,NULL),('06','2 Hari 1 Malam Solo + Cos',0,1,NULL,NULL,'costum_package.jpg',1,NULL),('07','Costume Package By -user1',10000,1,NULL,NULL,'costum_package.jpg',1,NULL);
+INSERT INTO `package` VALUES ('02','Makan Bajamba',200000,10,'082284978004','Makan bajamba is eating together in one container in the Rumah Gadang','1704445810_39e32a244e0188acf606.jpg',2,NULL),('03','2 Hari 1 Malam Solo',350000,1,'082284978004','This package provides an offer for tourists who want to travel to the Nagari Tuo Pariangan village for 2 days and one night, which guarantees that tourists will not feel lonely.','1704446598_077eda6497541fd1b44c.png',2,NULL),('04','2 Hari 1 Malam Group',800000,10,'082284978004','This package provides an offer for tourists who want to travel to the Nagari Tuo Pariangan village for 2 days and one night, which guarantees that tourists will not feel lonely.','1704446263_3d38b3f55a5fdb1676e0.png',2,NULL),('05','Costume Package By -user1',290000,1,NULL,NULL,'costum_package.jpg',1,NULL),('06','2 Hari 1 Malam Solo + Cos',0,1,NULL,NULL,'costum_package.jpg',1,NULL),('07','Costume Package By -user1',10000,1,NULL,NULL,'costum_package.jpg',1,NULL),('08','Costume Package By -user1',150000,1,NULL,NULL,'costum_package.jpg',1,NULL);
 /*!40000 ALTER TABLE `package` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -917,7 +917,7 @@ CREATE TABLE `package_day` (
 
 LOCK TABLES `package_day` WRITE;
 /*!40000 ALTER TABLE `package_day` DISABLE KEYS */;
-INSERT INTO `package_day` VALUES ('02','1',NULL),('03','1','Hari Pertama'),('03','2','Hari Kedua'),('04','1','Hari Pertama'),('04','2','Hari Kedua'),('05','1',NULL),('06','1','Hari Pertama'),('06','2','Hari Kedua'),('06','3',NULL),('07','1',NULL);
+INSERT INTO `package_day` VALUES ('02','1',NULL),('03','1','Hari Pertama'),('03','2','Hari Kedua'),('04','1','Hari Pertama'),('04','2','Hari Kedua'),('05','1',NULL),('06','1','Hari Pertama'),('06','2','Hari Kedua'),('06','3',NULL),('07','1',NULL),('08','1',NULL);
 /*!40000 ALTER TABLE `package_day` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1117,7 +1117,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES ('R001',3,'03','2024-10-17','3',1,NULL,350000,'2024-10-06 09:44:37',2,100000,'2024-10-06 09:45:25',3,'1728207894_cd856de97215ad52dba3.jpg','2024-10-06 16:45:01',NULL,'2024-10-06 09:45:09',2,NULL,NULL,NULL,NULL,NULL,NULL,'2024-10-06 02:44:22','2024-10-06 02:45:25'),('R002',3,'07','2024-10-13','1',1,NULL,10000,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2024-10-06 02:49:11','2024-10-06 02:49:11');
+INSERT INTO `reservation` VALUES ('R001',3,'03','2024-10-17','3',1,NULL,350000,'2024-10-06 09:44:37',2,100000,'2024-10-06 09:45:25',3,'1728207894_cd856de97215ad52dba3.jpg','2024-10-06 16:45:01',NULL,'2024-10-06 09:45:09',2,NULL,NULL,NULL,NULL,NULL,NULL,'2024-10-06 02:44:22','2024-10-06 02:45:25'),('R002',3,'07','2024-10-13','1',1,NULL,10000,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2024-10-06 02:49:11','2024-10-06 02:49:11'),('R003',3,'08','2024-10-17','4',1,NULL,150000,'2024-10-06 10:45:20',2,12222,NULL,NULL,'1728211533_41974d7449ea50cc4e7c.jpg','2024-10-06 17:45:34',NULL,'2024-10-06 10:45:39',2,NULL,NULL,NULL,NULL,NULL,NULL,'2024-10-06 03:45:11','2024-10-06 03:45:39');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1216,7 +1216,7 @@ DROP TABLE IF EXISTS `service_package`;
 CREATE TABLE `service_package` (
   `id` varchar(2) NOT NULL,
   `name` varchar(25) NOT NULL,
-  `price` int DEFAULT NULL,
+  `price` int DEFAULT '0',
   `is_group` tinyint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -1228,7 +1228,7 @@ CREATE TABLE `service_package` (
 
 LOCK TABLES `service_package` WRITE;
 /*!40000 ALTER TABLE `service_package` DISABLE KEYS */;
-INSERT INTO `service_package` VALUES ('01','Makan Bajamba',NULL,NULL),('02','Tour Guide',NULL,NULL),('03','Sepeda Motor dan Helm',NULL,NULL),('04','Homestay 1 Malam',NULL,NULL),('05','1 x makan malam ',NULL,NULL),('06','1 x sarapan',NULL,NULL),('07','Bahan Bakar',NULL,NULL),('08','Tiket Masuk dan Tiket Par',NULL,NULL),('09','Kebutuhan Pribadi',NULL,NULL),('10','Makan Siang',NULL,NULL),('11','Tips',NULL,NULL);
+INSERT INTO `service_package` VALUES ('01','Makan Bajamba',0,NULL),('02','Tour Guide',0,NULL),('03','Sepeda Motor dan Helm',0,NULL),('04','Homestay 1 Malam',0,NULL),('05','1 x makan malam ',0,NULL),('06','1 x sarapan',0,NULL),('07','Bahan Bakar',0,NULL),('08','Tiket Masuk dan Tiket Par',0,NULL),('09','Kebutuhan Pribadi',0,NULL),('10','Makan Siang',0,NULL),('11','Tips',0,NULL);
 /*!40000 ALTER TABLE `service_package` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1483,4 +1483,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-06 16:51:35
+-- Dump completed on 2024-10-06 18:06:06
