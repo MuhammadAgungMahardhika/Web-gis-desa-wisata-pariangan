@@ -461,7 +461,7 @@ fieldset {
   display: block;
   margin: 0.6em 2px 2px;
   padding: 0.75em;
-  border: 1pt groove #000000;
+  border: 1pt groove #666;
   position: relative;
 }
 
