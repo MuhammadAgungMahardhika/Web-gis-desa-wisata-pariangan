@@ -119,40 +119,7 @@
                             <?php endforeach; ?>
                         </div>
                     </div>
-
-
-                    <div class="row">
-                        <div class="col border p-2">
-                            <p class="fw-bold">Detail Packages </p>
-                            <?php if ($data['package_day'] != null) : ?>
-                                <a href="<?= base_url('package/costumExisting') . '/' . $data['id'] ?>" class="btn btn-outline-primary mb-2">Extend this package</a>
-                                <div class="list-group list-group-horizontal-sm mb-4 text-center" role="tablist">
-                                    <?php $dayNumber = 1; ?>
-                                    <?php foreach ($data['package_day'] as $day) : ?>
-                                        <a onclick="getObjectsByPackageDayId('<?= $data['id'] ?>','<?= $day['day'] ?>','<?= $dayNumber ?>')" class="list-group-item list-group-item-action <?= $dayNumber == 1 ? "active" : "" ?>" id="list-<?= $dayNumber; ?>-list" data-bs-toggle="list" href="#list-<?= $dayNumber; ?>" role="tab" aria-selected="<?= $dayNumber == 1 ? "true" : "false" ?>"> Day <?= $dayNumber; ?></a>
-                                        <?php $dayNumber++; ?>
-                                    <?php endforeach; ?>
-                                </div>
-                                <p class="fw-bold">Activities </p>
-                                <div class="tab-content text-justify px-1">
-                                    <?php $detailNumber = 1 ?>
-                                    <?php foreach ($data['package_day'] as $day) : ?>
-                                        <?php $i = 1; ?>
-                                        <div class="tab-pane fade <?= $detailNumber == 1 ? "active show" : "" ?> " id="list-<?= $detailNumber ?>" role="tabpanel" aria-labelledby="list-<?= $detailNumber ?>-list">
-                                            <?php foreach ($day['package_day_detail'] as $activities) : ?>
-                                                <p><?= esc($i) . '. ' . esc($activities['detailDescription']); ?></p>
-                                                <?php $i++; ?>
-                                            <?php endforeach; ?>
-                                        </div>
-                                        <?php $detailNumber++; ?>
-                                    <?php endforeach; ?>
-                                </div>
-                            <?php else : ?>
-                                <p>Activities not found</p>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
+                    <a href="<?= base_url('package/costumExisting') . '/' . $data['id'] ?>" class="btn btn-outline-primary mb-2">Extend this package</a>
                 </div>
             </div>
 
@@ -161,20 +128,118 @@
         </div>
 
         <div class="col-md-6 col-12">
-            <!-- Object Location on Map -->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Google Maps</h5>
-                </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- Object Location on Map -->
+                    <div class="card">
+                        <?= $this->include('layout/map-head'); ?>
+                        <!-- Object Map body -->
+                        <?= $this->include('layout/map-body'); ?>
+                        <div class="card-footer">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="cpCheck">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Culinary place
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="wpCheck">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Worship place
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="spCheck">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Souvenir place
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="fCheck">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Facility
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="hCheck">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Homestay
 
-                <?= $this->include('layout/map-body'); ?>
-                <div class="card-footer text-center">
-                    <h3>Day <span id="day-info">1</span></h3>
-                </div>
+                                </label>
+                            </div>
+                            <output id="sliderVal"></output>
+                            <input id="radiusSlider" type="range" onchange="supportNearby(this.value)" class="form-range autofocus" min="0" max="2000" step="10" value="0">
 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title text-center"> Activities</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="p-4" id="package-day-container">
+                                <?php $noDay = 1; ?>
+                                <?php if ($packageDayData) : ?>
+
+                                    <?php foreach ($packageDayData as $packageDay) : ?>
+                                        <div class="border shadow-sm p-4 mb-4 table-responsive">
+                                            <span> Day </span> <input value="<?= $noDay ?>" type="text" name="packageDetailData[<?= $noDay ?>][day]" class="d-block" id="input-day-<?= $noDay ?>" readonly>
+                                            <span> Object count </span> <input disabled type="text" id="lastNoDetail<?= $noDay ?>" class="d-block">
+                                            <!-- give day order -->
+                                            <span> Description </span> <input value="<?= $packageDay['description'] ?>" name="packageDetailData[<?= $noDay ?>][packageDayDescription]" class="d-block" readonly>
+
+                                            <br>
+                                            <br>
+                                            <?php $noDetail = 0; ?>
+
+                                            <a class="btn btn-primary btn-sm" href="#" title="Show Route" onclick="getObjects(<?= $noDay ?>)"><i class="fa fa-road me-2"></i> show route on map</a>
+                                            <table class="table table-sm table-border" id="table-day">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Object code <span class="text-danger">*</span> </th>
+                                                        <th>Activity type</th>
+                                                        <th>Activity price</th>
+                                                        <th>Activity description <span class="text-danger">*</span></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="body-detail-package-<?= $noDay ?>">
+                                                    <script>
+                                                        let arrayPrice = []
+                                                    </script>
+                                                    <?php foreach ($packageDay['detailPackage'] as $detailPackage) : ?>
+                                                        <script>
+                                                            arrayPrice.push({
+                                                                id: '<?= $detailPackage['id_object']  ?>',
+                                                                price: parseInt('<?= $detailPackage['activity_price']  ?>')
+                                                            })
+                                                        </script>
+                                                        <tr id="<?= $noDay ?>-<?= $noDetail ?>">
+                                                            <td><input value="<?= $detailPackage['id_object']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][id_object]" required readonly></td>
+                                                            <td><input value="<?= $detailPackage['activity_type']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_type]" readonly></td>
+                                                            <td><input value="<?= $detailPackage['activity_price']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_price]" readonly></td>
+                                                            <td><input value="<?= $detailPackage['description']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][description]" required readonly></td>
+
+                                                        </tr>
+                                                        <?php $noDetail++ ?>
+                                                    <?php endforeach; ?>
+                                                    <script>
+                                                        $(`#lastNoDetail<?= $noDay ?>`).val(<?= $noDetail ?>)
+                                                    </script>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <?php $noDay++ ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-
-            <!-- Object Media -->
 
         </div>
     </div>
@@ -298,6 +363,135 @@
                 console.log(err.responseText)
             }
         });
+    }
+
+    function getObjects(noDay) {
+        const objects = [];
+        let noDetail = 0;
+        $(`#body-detail-package-${noDay} tr`).each(function() {
+            const objectId = $(this).find(`input[name="packageDetailData[${noDay}][detailPackage][${noDetail++}][id_object]"]`).val();
+            if (objectId) {
+                objects.push({
+                    id_object: objectId
+                });
+            }
+        });
+        if (objects.length > 0) {
+            showObjectsRoute(objects)
+
+        } else {
+            alert('No activities detected')
+        }
+    }
+
+    function showObjectsRoute(objects = null) {
+        let objectNumber = 1
+        let flightPlanCoordinates = []
+        clearMarker()
+        clearRoutes()
+        let boundObject = new google.maps.LatLngBounds();
+        objects.forEach(object => {
+            let id_object = object['id_object']
+
+            let URI = "<?= base_url('list_object') ?>";
+            let url = ""
+            if (id_object.charAt(0) == 'H') {
+                url = "homestay"
+                URI = URI + '/homestay/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'E') {
+                url = "event"
+                URI = URI + '/event/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'C') {
+                url = "culinary_place"
+                URI = URI + '/culinary_place/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'W') {
+                url = "worship_place"
+                URI = URI + '/worship_place/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'S') {
+                url = "souvenir_place"
+                URI = URI + '/souvenir_place/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'A') {
+                url = "atraction"
+                URI = URI + '/atraction/' + `${id_object.substring(1,3)}`
+            }
+
+            $.ajax({
+                url: URI,
+                type: "GET",
+                async: false,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.objectData.length > 0) {
+                        let data = response.objectData[0]
+                        let latlng = new google.maps.LatLng(data.lat, data.lng)
+                        showObjectOnMap(objectNumber, data)
+                        boundObject.extend(latlng)
+                    }
+
+                }
+            })
+            objectNumber++
+        })
+
+        map.fitBounds(boundObject)
+        map.setCenter(boundObject.getCenter())
+    }
+    // Display marker for loaded object
+    function showObjectOnMap(objectNumber, data, anim = true) {
+        let id = data.id
+        let lat = data.lat
+        let lng = data.lng
+        google.maps.event.clearListeners(map, 'click');
+        let pos = new google.maps.LatLng(lat, lng);
+        let marker = new google.maps.Marker();
+        let icon = `https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red${objectNumber}.png`;
+
+        markerOption = {
+            position: pos,
+            icon: icon,
+            animation: google.maps.Animation.DROP,
+            map: map,
+        }
+        marker.setOptions(markerOption);
+        if (!anim) {
+            marker.setAnimation(null);
+        }
+        marker.addListener('click', () => {
+            openInfoWindow(marker, infoMarkerData(data, url = null))
+        });
+        markerArray.push(marker);
+        if (objectNumber == 1) {
+            latBefore = lat
+            lngBefore = lng
+
+        } else {
+            routeAll(lat, lng)
+        }
+    }
+
+    function routeAll(lat, lng) {
+        google.maps.event.clearListeners(map, 'click')
+        let directionsService = new google.maps.DirectionsService();
+        let start, end;
+        start = new google.maps.LatLng(latBefore, lngBefore);
+        end = new google.maps.LatLng(lat, lng)
+        let request = {
+            origin: start,
+            destination: end,
+            travelMode: 'DRIVING'
+        };
+        directionsService.route(request, function(result, status) {
+            if (status == 'OK') {
+                directionsRenderer = new google.maps.DirectionsRenderer({
+                    suppressMarkers: true
+                })
+                directionsRenderer.setDirections(result);
+
+                directionsRenderer.setMap(map);
+                routeArray.push(directionsRenderer);
+            }
+        });
+
     }
 
 

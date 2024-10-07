@@ -1,5 +1,12 @@
 <?= $this->extend('layout/template.php') ?>
 <?= $this->section('head') ?>
+<script>
+    let datas
+    let geomPariangan = JSON.parse('<?= $parianganData->geoJSON; ?>')
+    let latPariangan = parseFloat(<?= $parianganData->lat; ?>)
+    let lngPariangan = parseFloat(<?= $parianganData->lng; ?>)
+</script>
+<script src="<?= base_url('assets/js/map.js') ?>"></script>
 <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/filepond-plugin-media-preview@1.0.11/dist/filepond-plugin-media-preview.min.css">
@@ -135,63 +142,113 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title text-center">Detail package</h4>
-                        </div>
-                        <div class="card-body">
-                            <button type="button" onclick="openPackageDayModal(`${noDay}`)" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#modalPackage"> New package day
-                            </button>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Object Location on Map -->
+                            <div class="card">
+                                <?= $this->include('layout/map-head'); ?>
+                                <!-- Object Map body -->
+                                <?= $this->include('layout/map-body'); ?>
+                                <div class="card-footer">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="cpCheck">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Culinary place
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="wpCheck">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Worship place
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="spCheck">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Souvenir place
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="fCheck">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Facility
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="hCheck">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Homestay
 
-                            <div class="p-4" id="package-day-container">
-                                <?php $noDay = 1; ?>
-                                <?php if ($packageDayData) : ?>
+                                        </label>
+                                    </div>
+                                    <output id="sliderVal"></output>
+                                    <input id="radiusSlider" type="range" onchange="supportNearby(this.value)" class="form-range autofocus" min="0" max="2000" step="10" value="0">
 
-                                    <?php foreach ($packageDayData as $packageDay) : ?>
-                                        <div class="border shadow-sm p-4 mb-4 table-responsive">
-                                            <span> Day </span> <input value="<?= $noDay ?>" type="text" name="packageDetailData[<?= $noDay ?>][day]" class="d-block" id="input-day-<?= $noDay ?>" readonly>
-                                            <span> Object count </span> <input disabled type="text" id="lastNoDetail<?= $noDay ?>" class="d-block">
-                                            <!-- give day order -->
-                                            <span> Description </span> <input value="<?= $packageDay['description'] ?>" name="packageDetailData[<?= $noDay ?>][packageDayDescription]" class="d-block">
-
-                                            <br>
-                                            <br>
-                                            <?php $noDetail = 0; ?>
-
-                                            <a class="btn btn-outline-success btn-sm" onclick="openDetailPackageModal(<?= $noDay ?>)" data-bs-toggle="modal" data-bs-target="#modalPackage"> <i class="fa fa-plus"> </i> </a>
-                                            <table class="table table-sm table-border" id="table-day">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Object code <span class="text-danger">*</span> </th>
-                                                        <th>Activity type</th>
-                                                        <th>Activity price</th>
-                                                        <th>Activity description <span class="text-danger">*</span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="body-detail-package-<?= $noDay ?>">
-                                                    <?php foreach ($packageDay['detailPackage'] as $detailPackage) : ?>
-                                                        <tr id="<?= $noDay ?>-<?= $noDetail ?>">
-                                                            <td><input value="<?= $detailPackage['id_object']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][id_object]" required readonly></td>
-                                                            <td><input value="<?= $detailPackage['activity_type']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_type]" readonly></td>
-                                                            <td><input value="<?= $detailPackage['activity_price']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_price]" readonly></td>
-                                                            <td><input value="<?= $detailPackage['description']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][description]" required></td>
-                                                            <td><a class="btn btn-danger" onclick="removeObject('<?= $noDay ?>','<?= $noDetail ?>','<?= $detailPackage['activity_price']; ?>')"> <i class="fa fa-x"></i> </a></td>
-                                                        </tr>
-                                                        <?php $noDetail++ ?>
-                                                    <?php endforeach; ?>
-                                                    <script>
-                                                        $(`#lastNoDetail<?= $noDay ?>`).val(<?= $noDetail ?>)
-                                                    </script>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <?php $noDay++ ?>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title text-center">Detail package</h4>
+                            </div>
+                            <div class="card-body">
+                                <button type="button" onclick="openPackageDayModal(`${noDay}`)" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#modalPackage"> New package day
+                                </button>
+
+                                <div class="p-4" id="package-day-container">
+                                    <?php $noDay = 1; ?>
+                                    <?php if ($packageDayData) : ?>
+
+                                        <?php foreach ($packageDayData as $packageDay) : ?>
+                                            <div class="border shadow-sm p-4 mb-4 table-responsive">
+                                                <span> Day </span> <input value="<?= $noDay ?>" type="text" name="packageDetailData[<?= $noDay ?>][day]" class="d-block" id="input-day-<?= $noDay ?>" readonly>
+                                                <span> Object count </span> <input disabled type="text" id="lastNoDetail<?= $noDay ?>" class="d-block">
+                                                <!-- give day order -->
+                                                <span> Description </span> <input value="<?= $packageDay['description'] ?>" name="packageDetailData[<?= $noDay ?>][packageDayDescription]" class="d-block">
+
+                                                <br>
+                                                <br>
+                                                <?php $noDetail = 0; ?>
+
+                                                <a class="btn btn-outline-success btn-sm" onclick="openDetailPackageModal(<?= $noDay ?>)" data-bs-toggle="modal" data-bs-target="#modalPackage"> <i class="fa fa-plus"> </i> </a>
+                                                <a class="btn btn-primary btn-sm" href="#" title="Show Route" onclick="getObjects(<?= $noDay ?>)"><i class="fa fa-road me-2"></i> show route on map</a>
+                                                <table class="table table-sm table-border" id="table-day">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Object code <span class="text-danger">*</span> </th>
+                                                            <th>Activity type</th>
+                                                            <th>Activity price</th>
+                                                            <th>Activity description <span class="text-danger">*</span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="body-detail-package-<?= $noDay ?>">
+                                                        <?php foreach ($packageDay['detailPackage'] as $detailPackage) : ?>
+                                                            <tr id="<?= $noDay ?>-<?= $noDetail ?>">
+                                                                <td><input value="<?= $detailPackage['id_object']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][id_object]" required readonly></td>
+                                                                <td><input value="<?= $detailPackage['activity_type']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_type]" readonly></td>
+                                                                <td><input value="<?= $detailPackage['activity_price']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_price]" readonly></td>
+                                                                <td><input value="<?= $detailPackage['description']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][description]" required></td>
+                                                                <td><a class="btn btn-danger" onclick="removeObject('<?= $noDay ?>','<?= $noDetail ?>','<?= $detailPackage['activity_price']; ?>')"> <i class="fa fa-x"></i> </a></td>
+                                                            </tr>
+                                                            <?php $noDetail++ ?>
+                                                        <?php endforeach; ?>
+                                                        <script>
+                                                            $(`#lastNoDetail<?= $noDay ?>`).val(<?= $noDetail ?>)
+                                                        </script>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <?php $noDay++ ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -206,6 +263,149 @@
 <script src="https://cdn.jsdelivr.net/npm/filepond-plugin-media-preview@1.0.11/dist/filepond-plugin-media-preview.min.js"></script>
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 <script src="<?= base_url('assets/js/extensions/form-element-select.js'); ?>"></script>
+<!-- Maps JS -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8B04MTIk7abJDVESr6SUF6f3Hgt1DPAY&region=ID&language=en&callback=initMap"></script>
+<script>
+    let latBefore = ''
+    let lngBefore = ''
+    let routeArray = []
+
+    function getObjects(noDay) {
+        const objects = [];
+        let noDetail = 0;
+        $(`#body-detail-package-${noDay} tr`).each(function() {
+            const objectId = $(this).find(`input[name="packageDetailData[${noDay}][detailPackage][${noDetail++}][id_object]"]`).val();
+            if (objectId) {
+                objects.push({
+                    id_object: objectId
+                });
+            }
+        });
+        if (objects.length > 0) {
+            showObjectsRoute(objects)
+
+        } else {
+            alert('No activities detected')
+        }
+    }
+
+    function showObjectsRoute(objects = null) {
+        let objectNumber = 1
+        let flightPlanCoordinates = []
+        clearMarker()
+        clearRoutes()
+        let boundObject = new google.maps.LatLngBounds();
+        objects.forEach(object => {
+            let id_object = object['id_object']
+
+            let URI = "<?= base_url('list_object') ?>";
+            let url = ""
+            if (id_object.charAt(0) == 'H') {
+                url = "homestay"
+                URI = URI + '/homestay/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'E') {
+                url = "event"
+                URI = URI + '/event/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'C') {
+                url = "culinary_place"
+                URI = URI + '/culinary_place/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'W') {
+                url = "worship_place"
+                URI = URI + '/worship_place/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'S') {
+                url = "souvenir_place"
+                URI = URI + '/souvenir_place/' + `${id_object.substring(1,3)}`
+            } else if (id_object.charAt(0) == 'A') {
+                url = "atraction"
+                URI = URI + '/atraction/' + `${id_object.substring(1,3)}`
+            }
+
+            $.ajax({
+                url: URI,
+                type: "GET",
+                async: false,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.objectData.length > 0) {
+                        let data = response.objectData[0]
+                        let latlng = new google.maps.LatLng(data.lat, data.lng)
+                        showObjectOnMap(objectNumber, data)
+                        boundObject.extend(latlng)
+                    }
+
+                }
+            })
+            objectNumber++
+        })
+
+        map.fitBounds(boundObject)
+        map.setCenter(boundObject.getCenter())
+    }
+    // Display marker for loaded object
+    function showObjectOnMap(objectNumber, data, anim = true) {
+        let id = data.id
+        let lat = data.lat
+        let lng = data.lng
+        google.maps.event.clearListeners(map, 'click');
+        let pos = new google.maps.LatLng(lat, lng);
+        let marker = new google.maps.Marker();
+        let icon = `https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red${objectNumber}.png`;
+
+        markerOption = {
+            position: pos,
+            icon: icon,
+            animation: google.maps.Animation.DROP,
+            map: map,
+        }
+        marker.setOptions(markerOption);
+        if (!anim) {
+            marker.setAnimation(null);
+        }
+        marker.addListener('click', () => {
+            openInfoWindow(marker, infoMarkerData(data, url = null))
+        });
+        markerArray.push(marker);
+        if (objectNumber == 1) {
+            latBefore = lat
+            lngBefore = lng
+
+        } else {
+            routeAll(lat, lng)
+        }
+    }
+
+    function routeAll(lat, lng) {
+        google.maps.event.clearListeners(map, 'click')
+        let directionsService = new google.maps.DirectionsService();
+        let start, end;
+        start = new google.maps.LatLng(latBefore, lngBefore);
+        end = new google.maps.LatLng(lat, lng)
+        let request = {
+            origin: start,
+            destination: end,
+            travelMode: 'DRIVING'
+        };
+        directionsService.route(request, function(result, status) {
+            if (status == 'OK') {
+                directionsRenderer = new google.maps.DirectionsRenderer({
+                    suppressMarkers: true
+                })
+                directionsRenderer.setDirections(result);
+
+                directionsRenderer.setMap(map);
+                routeArray.push(directionsRenderer);
+            }
+        });
+
+    }
+
+    function clearRoutes() {
+        for (i in routeArray) {
+            routeArray[i].setMap(null);
+        }
+        routeArray = [];
+    }
+</script>
 <script>
     let lastServicePrice = 0
     checkServicePrice()
@@ -310,6 +510,7 @@
         <br>
         <br>
         <a class="btn btn-outline-success btn-sm" onclick="openDetailPackageModal('${noDay}')" data-bs-toggle="modal" data-bs-target="#modalPackage"> <i class="fa fa-plus"> </i> </a>
+        <a class="btn btn-primary btn-sm" href="#" title="Show Route" onclick="getObjects('${noDay}')"><i class="fa fa-road me-2"></i> show route on map</a>
         <table class="table table-border" id="table-day"> 
             <thead>
                 <tr>

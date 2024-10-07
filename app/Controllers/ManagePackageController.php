@@ -144,7 +144,9 @@ class ManagePackageController extends BaseController
             // 'homestayData' => $homestayData,
             'packageDayData' => $packageDay,
             'objectData' => $objectData,
-            'serviceData' => $serviceData
+            'serviceData' => $serviceData,
+            'parianganData' => $this->modelPariangan->getPariangan()
+
         ];
         return view('admin-edit/edit_package', $data);
     }

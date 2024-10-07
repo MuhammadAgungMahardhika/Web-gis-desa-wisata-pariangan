@@ -64,6 +64,13 @@ class packageController extends BaseController
             return redirect()->to(substr(current_url(), 0, -strlen($id)));
         }
 
+        $packageDay = $this->packageDayModel->get_pd_by_package_id_api($id)->getResultArray();
+        $no = 0;
+        foreach ($packageDay as $day) {
+            $packageDay[$no]['detailPackage'] = $this->detailPackageModel->get_objects_by_package_day_id($id, $day['day']);
+            $no++;
+        }
+
         //untuk ajax
         if ($this->request->isAJAX()) {
             $user_id = $this->request->getGet('user_id');
@@ -121,6 +128,7 @@ class packageController extends BaseController
             'data' => $package,
             'parianganData' => $parianganData,
             'url' => 'package',
+            'packageDayData' => $packageDay,
         ];
 
         return view('user-menu/detail_package', $data);

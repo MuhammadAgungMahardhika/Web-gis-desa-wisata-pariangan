@@ -216,15 +216,6 @@
     let lngBefore = ''
     let routeArray = []
 
-    // example object
-    let exampleResponse = [{
-            "id_object": "A01",
-        },
-        {
-            "id_object": "A03",
-        }
-    ]
-
     function getObjects(noDay) {
         const objects = [];
         let noDetail = 0;
