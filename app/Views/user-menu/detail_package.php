@@ -38,7 +38,6 @@
         <ol class="breadcrumb ">
             <li class="breadcrumb-item "><a href="<?= base_url('package') ?>"> List package</a></li>
             <li class="breadcrumb-item active" aria-current="page"> Detail package</li>
-
         </ol>
     </nav>
     <div class="row">
@@ -135,6 +134,9 @@
                         <?= $this->include('layout/map-head'); ?>
                         <!-- Object Map body -->
                         <?= $this->include('layout/map-body'); ?>
+                        <div class="ms-4 mb-4">
+                            <h4>Active Map <span id="viewPoint" style="color: chartreuse;">Day 1</span></h4>
+                        </div>
                         <div class="card-footer">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="cpCheck">
@@ -164,12 +166,10 @@
                                 <input class="form-check-input" type="checkbox" value="" id="hCheck">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Homestay
-
                                 </label>
                             </div>
                             <output id="sliderVal"></output>
                             <input id="radiusSlider" type="range" onchange="supportNearby(this.value)" class="form-range autofocus" min="0" max="2000" step="10" value="0">
-
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,6 @@
                             <div class="p-4" id="package-day-container">
                                 <?php $noDay = 1; ?>
                                 <?php if ($packageDayData) : ?>
-
                                     <?php foreach ($packageDayData as $packageDay) : ?>
                                         <div class="border shadow-sm p-4 mb-4 table-responsive">
                                             <span> Day </span> <input value="<?= $noDay ?>" type="text" name="packageDetailData[<?= $noDay ?>][day]" class="d-block" id="input-day-<?= $noDay ?>" readonly>
@@ -366,6 +365,7 @@
     }
 
     function getObjects(noDay) {
+
         const objects = [];
         let noDetail = 0;
         $(`#body-detail-package-${noDay} tr`).each(function() {
@@ -377,6 +377,7 @@
             }
         });
         if (objects.length > 0) {
+            $('#viewPoint').html('Day ' + noDay)
             showObjectsRoute(objects)
 
         } else {

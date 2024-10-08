@@ -141,6 +141,9 @@
                             <?= $this->include('layout/map-head'); ?>
                             <!-- Object Map body -->
                             <?= $this->include('layout/map-body'); ?>
+                            <div class="ms-4 mb-4">
+                                <h4>Active Map <span id="viewPoint" style="color: chartreuse;">Day 1</span></h4>
+                            </div>
                             <div class="card-footer">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="cpCheck">
@@ -228,6 +231,7 @@
             }
         });
         if (objects.length > 0) {
+            $('#viewPoint').html('Day ' + noDay)
             showObjectsRoute(objects)
 
         } else {
