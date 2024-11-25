@@ -7,9 +7,10 @@
     let lngPariangan = parseFloat(<?= $parianganData->lng; ?>)
 </script>
 <script src="<?= base_url('assets/js/map.js') ?>"></script>
-<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/filepond-plugin-media-preview@1.0.11/dist/filepond-plugin-media-preview.min.css">
+<link rel="stylesheet" href="<?= base_url('assets/lib/filepond/filepond.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/lib/filepond/filepond-plugin-media-preview.min.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/lib/filepond/filepond-plugin-image-preview.css') ?>">
+
 <link rel="stylesheet" href="<?= base_url('assets/css/pages/form-element-select.css'); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

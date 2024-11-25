@@ -1,8 +1,9 @@
 <?= $this->extend('layout/template.php') ?>
 <?= $this->section('head'); ?>
-<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/filepond-plugin-media-preview@1.0.11/dist/filepond-plugin-media-preview.min.css">
+<link rel="stylesheet" href="<?= base_url('assets/lib/filepond/filepond.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/lib/filepond/filepond-plugin-media-preview.min.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/lib/filepond/filepond-plugin-image-preview.css') ?>">
+
 <link rel="stylesheet" href="<?= base_url('assets/css/pages/form-element-select.css'); ?>">
 <style>
     .filepond--root {
