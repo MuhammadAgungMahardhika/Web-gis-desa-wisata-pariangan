@@ -211,7 +211,7 @@ class packageController extends BaseController
             'id' => $id_package,
             'name' => 'Costume Package By -' . $request['username'],
             'price' => empty($request['price']) ? "0" : $request['price'],
-            'capacity' => $request['reservationData']['number_people'],
+            'capacity' => 100,
             'url' => 'costum_package.jpg',
             'costum' => $request['reservationData']['costum'],
         ];
@@ -259,26 +259,9 @@ class packageController extends BaseController
             $addService = $this->detailServicePackageModel->add_service_api($id_package, $services, 'include');
         }
 
-        // create reservation
-        $addR = true;
-        if (isset($request['reservationData'])) {
-            $id = $this->reservationModel->get_new_id_api();
-            $requestData = [
-                'id' => $id,
-                'id_user' => $request['id_user'],
-                'id_package' => $id_package,
-                'request_date' => $request['reservationData']['reservation_date'],
-                'total_price' => empty($request['price']) ? "0" : $request['price'],
-                'id_reservation_status' => '1',
-                'number_people' => $request['reservationData']['number_people'],
-                'comment' => $request['reservationData']['comment']
-            ];
-
-            $addR = $this->reservationModel->add_r_api($requestData);
-        }
-
-        if ($addtp && $addService && $addR) {
-            return redirect()->to(base_url('user/reservation/') . '/' . $request['id_user']);
+        if ($addtp && $addService) {
+            // return redirect()->to(base_url('user/reservation/') . '/' . $request['id_user']);
+            return redirect()->to(base_url('package/detail/') . '/' . $id_package);
         } else {
             return redirect()->back()->withInput();
         }

@@ -69,14 +69,7 @@
                             <h4 class="card-title text-center"><?= $title; ?></h4>
                         </div>
                         <div class="card-body">
-                            <div class="form-group mb-4">
-                                <label for="reservation_date" class="mb-2"> Select booking date (Min H-7) <span class="text-danger">*</span></label>
-                                <input type="date" id="reservation_date" name="reservationData[reservation_date]" class="form-control" required>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="number_people" class="mb-2"> Number of people<span class="text-danger">*</span> </label>
-                                <input type="number" oninput="setPrice()" value="1" id="number_people" name="reservationData[number_people]" class="form-control" required>
-                            </div>
+
                             <div class="form-group mb-4">
                                 <label for="price" class="mb-2">Price </label>
                                 <div class="input-group">
@@ -414,7 +407,7 @@
 
     function checkRequired(event) {
         let reservationDate = $('#reservation_date').val()
-        let numberPeople = parseInt($('#number_people').val())
+
         let sameDateCheckResult = "true"
 
         let checkDetailPackage = $('#checkDetailPackage').val()
@@ -427,9 +420,6 @@
         if (reservationDate <= today) {
             event.preventDefault();
             Swal.fire('Cannot create costume package, out of date, Maximum H-1 reservation', '', 'warning');
-        } else if (numberPeople <= 0 || isNaN(numberPeople)) {
-            event.preventDefault();
-            Swal.fire('Need 1 people at least', '', 'warning');
         } else if (!checkDetailPackage) {
             event.preventDefault();
             Swal.fire('You dont have any activities, please add 1 at least', '', 'warning');
