@@ -212,6 +212,7 @@
                                                                     <td><input value="<?= $detailPackage['activity_type']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_type]" readonly></td>
                                                                     <td><input value="<?= $detailPackage['activity_price']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_price]" readonly></td>
                                                                     <td><input value="<?= $detailPackage['description']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][description]" required readonly></td>
+                                                                    <td><a class="btn btn-danger" onclick="removeObject('<?= $noDay ?>','<?= $noDetail ?>','<?= $detailPackage['activity_price']; ?>')"> <i class="fa fa-x"></i> </a></td>
 
                                                                 </tr>
                                                                 <?php $noDetail++ ?>
@@ -219,7 +220,6 @@
                                                             <script>
                                                                 $(`#lastNoDetail<?= $noDay ?>`).val(<?= $noDetail ?>)
                                                             </script>
-
                                                         </tbody>
                                                     </table>
                                                 </div>

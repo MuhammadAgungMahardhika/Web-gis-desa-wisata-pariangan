@@ -86,7 +86,7 @@
                                 <label for="price" class="mb-2">Price <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text">Rp </span>
-                                    <input type="number" id="price" class="form-control" name="price" placeholder="price" aria-label="price" aria-describedby="price" value="0" required>
+                                    <input type="number" id="price" class="form-control" name="price" placeholder="price" aria-label="price" aria-describedby="price" value="0" required readonly>
                                 </div>
                             </div>
                             <div class="form-group mb-4">
@@ -101,7 +101,7 @@
 
                             <div class="form-group mb-4">
                                 <label for="service_package" class="mb-2">Service Package (include)</label>
-                                <select class="choices form-select multiple-remove" multiple="multiple" id="service_package" onchange="addServicePackage()">
+                                <select class="choices form-select multiple-remove" multiple="multiple" id="service_package" onchange="setPrice()">
                                     <?php foreach ($serviceData as $service) : ?>
                                         <option value="<?= esc(json_encode($service)); ?>"><?= esc($service['name'] . ' (' . $service['price'] . ')'); ?></option>
                                     <?php endforeach; ?>
@@ -358,6 +358,60 @@
     }
 </script>
 <script>
+    let numberPeoples = 1
+    let lastServicePrice = 0
+    let noDay = <?= $noDay ?>;
+    let arrayPrice = []
+
+    function setPrice() {
+        let services = $('#service_package').val()
+        let numberPeople = parseInt($('#number_people').val())
+        let totalPrice = 0
+
+        numberPeople = checkNumberPeople(numberPeople)
+        if (numberPeople != false) {
+            let servicePackageForm = $('#service_package_form')
+            let servicePrice = 0
+            servicePackageForm.empty()
+            services.forEach(service => {
+                let serviceParsed = JSON.parse(service)
+                let price = serviceParsed.price
+                if (serviceParsed.is_group == "0") {
+                    if (price) {
+                        servicePrice += parseInt(price) * numberPeople
+                    } else {
+                        servicePrice += 0 * numberPeople
+                    }
+                } else {
+                    if (price) {
+                        servicePrice += parseInt(price)
+                    } else {
+                        servicePrice += 0
+                    }
+
+                }
+                servicePackageForm.append(`<input type="hidden" name="service_package[]" value="${serviceParsed.id}" />`)
+            });
+
+            let objectPrice = 0
+            arrayPrice.forEach(element => {
+                let elementPrice = element.price
+                if (elementPrice) {
+                    objectPrice += parseInt(elementPrice) * numberPeople
+                } else {
+                    objectPrice += 0 * numberPeople
+                }
+            })
+
+            console.log("total service price = " + servicePrice)
+            console.log("total object price = " + objectPrice)
+            totalPrice = servicePrice + objectPrice
+
+            $('#price').val(totalPrice)
+
+        }
+    }
+
     function checkRequired(event) {
         let checkDetailPackage = $('#checkDetailPackage').val()
         if (!checkDetailPackage) {
@@ -366,7 +420,6 @@
         }
     }
 
-    let lastServicePrice = 0
 
     function addServicePackage() {
         let services = $('#service_package').val()
@@ -394,13 +447,7 @@
         let current = $(`#lastNoDetail${noDay}`).val()
         $(`#lastNoDetail${noDay}`).val(current - 1)
 
-        let currentPrice = parseInt($(`#price`).val())
-        let finalPrice = currentPrice - parseInt(price)
-        console.log("object price" + price)
-        console.log("current price " + currentPrice)
-        console.log("final price " + finalPrice)
-
-        $(`#price`).val(finalPrice)
+        removePrice(generatedId, objectId)
 
     }
 
@@ -429,7 +476,7 @@
         )
     }
 
-    let noDay = <?= $noDay ?>
+
 
     // add package day to container
     function addPackageDay() {
@@ -515,12 +562,13 @@
     function saveDetailPackageDay(noDay) {
         //get data from modal input
         let noDetail = parseInt($(`#lastNoDetail${noDay}`).val())
-        let object_price = parseInt($("#detail-package-price-object").val())
+        let objectPrice = parseInt($("#detail-package-price-object").val())
         let object_id = $("#detail-package-id-object").val()
         let activity_type = ""
         let activity_price = parseInt($('#detail-package-price-object').val())
         let description = $("#detail-package-description").val()
 
+        const generatedIds = generateId()
         if (object_id.substring(0, 1) == 'A') {
             activity_type = 'Atraksi'
         } else if (object_id.substring(0, 1) == 'C') {
@@ -540,19 +588,53 @@
           <td><input class="form-control" value="${activity_price}" name="packageDetailData[${noDay}][detailPackage][${noDetail}][activity_price]"
           readonly></td>
           <td><input class="form-control" value="${description}" name="packageDetailData[${noDay}][detailPackage][${noDetail}][description]" required></td>
-          <td><a class="btn btn-danger" onclick="removeObject('${noDay}','${ noDetail }','${object_price}')"> <i class="fa fa-x"></i> </a></td>
+         <td><a class="btn btn-danger" onclick="removeObject('${noDay}','${ noDetail }','${object_id}', '${objectPrice}','${generatedIds}')"> <i class="fa fa-x"></i> </a></td>
         </tr>     
         `)
         $(`#lastNoDetail${noDay}`).val(noDetail + 1)
         $('#checkDetailPackage').val('oke')
         // price counting
         let currentPrice = parseInt($('#price').val())
-        let finalPrice = currentPrice + object_price
+        let finalPrice = currentPrice + objectPrice
         console.log("current price : " + currentPrice)
-        console.log("object price :" + object_price)
+        console.log("object price :" + objectPrice)
         console.log("final price : " + finalPrice)
 
-        $('#price').val(finalPrice)
+        addPrice(generatedIds, object_id, objectPrice)
+    }
+
+
+    function generateId() {
+        // Menghasilkan bilangan acak dengan rentang 0 sampai 999999
+        const randomId = Math.floor(Math.random() * 1000000);
+        return randomId;
+    }
+
+    function addPrice(generatedId, id, price) {
+        arrayPrice.push({
+            id: id,
+            price: price,
+            generatedId: generatedId
+        })
+        setPrice()
+    }
+
+
+    function removePrice(generatedId, id) {
+        arrayPrice = arrayPrice.filter(element => element.generatedId != generatedId);
+        setPrice()
+    }
+
+    function checkNumberPeople(numberPeople) {
+        let result = true
+        if (isNaN(numberPeople)) {
+            result = false
+        } else if (numberPeople < 1) {
+            result = 1
+        } else {
+            result = numberPeople
+        }
+        return result
     }
 </script>
 
