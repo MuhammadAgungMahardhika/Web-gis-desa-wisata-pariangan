@@ -48,7 +48,7 @@
     </style>
 </head>
 
-<body>
+<body style="font-size: large;">
     <div class="loader-wrapper">
         <img src="<?= base_url('/assets/images/pariangan.png'); ?>" class="loader">
     </div>

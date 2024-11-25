@@ -190,13 +190,12 @@
                                                     <span> Object count </span> <input disabled type="text" id="lastNoDetail<?= $noDay ?>" class="d-block">
                                                     <!-- give day order -->
                                                     <span> Description </span> <input value="<?= $packageDay['description'] ?>" name="packageDetailData[<?= $noDay ?>][packageDayDescription]" class="d-block">
-
                                                     <br>
                                                     <br>
                                                     <?php $noDetail = 0; ?>
 
                                                     <a class="btn btn-outline-success btn-sm" onclick="openDetailPackageModal(<?= $noDay ?>)" data-bs-toggle="modal" data-bs-target="#modalPackage"> <i class="fa fa-plus"> </i> </a>
-                                                    <a class="btn btn-primary btn-sm" href="#" title="Show Route" onclick="getObjects(<?= $noDay ?>)"><i class="fa fa-road me-2"></i> show route on map</a>
+                                                    <a class="btn btn-primary btn-sm" href="#" title="Show Route" onclick="getObjects('<?= $noDay ?>')"><i class="fa fa-road me-2"></i> show route on map</a>
                                                     <table class="table table-sm table-border" id="table-day">
                                                         <thead>
                                                             <tr>

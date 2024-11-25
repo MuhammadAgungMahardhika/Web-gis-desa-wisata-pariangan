@@ -191,7 +191,7 @@ class packageController extends BaseController
 
         $data = [
             'title' => 'Tourism Village | Costume Package',
-            // 'homestayData' => $homestayData,
+            'homestayData' => $homestayData,
             'packageDayData' => null,
             'objectData' => $objectData,
             'serviceData' => $serviceData,

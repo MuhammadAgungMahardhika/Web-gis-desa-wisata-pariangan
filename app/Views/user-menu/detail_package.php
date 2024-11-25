@@ -184,12 +184,7 @@
                                 <?php if ($packageDayData) : ?>
                                     <?php foreach ($packageDayData as $packageDay) : ?>
                                         <div class="border shadow-sm p-4 mb-4 table-responsive">
-                                            <span> Day </span> <input value="<?= $noDay ?>" type="text" name="packageDetailData[<?= $noDay ?>][day]" class="d-block" id="input-day-<?= $noDay ?>" readonly>
-                                            <span> Object count </span> <input disabled type="text" id="lastNoDetail<?= $noDay ?>" class="d-block">
-                                            <!-- give day order -->
-                                            <span> Description </span> <input value="<?= $packageDay['description'] ?>" name="packageDetailData[<?= $noDay ?>][packageDayDescription]" class="d-block" readonly>
-
-                                            <br>
+                                            <h3> Day <?= $noDay ?></h3>
                                             <br>
                                             <?php $noDetail = 0; ?>
 
@@ -197,16 +192,15 @@
                                             <table class="table table-sm table-border" id="table-day">
                                                 <thead>
                                                     <tr>
-                                                        <th>Object code <span class="text-danger">*</span> </th>
-                                                        <th>Activity type</th>
-                                                        <th>Activity price</th>
-                                                        <th>Activity description <span class="text-danger">*</span></th>
+                                                        <th>No </th>
+                                                        <th>Activities</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="body-detail-package-<?= $noDay ?>">
                                                     <script>
                                                         let arrayPrice = []
                                                     </script>
+                                                    <?php $no = 1; ?>
                                                     <?php foreach ($packageDay['detailPackage'] as $detailPackage) : ?>
                                                         <script>
                                                             arrayPrice.push({
@@ -214,11 +208,13 @@
                                                                 price: parseInt('<?= $detailPackage['activity_price']  ?>')
                                                             })
                                                         </script>
+
                                                         <tr id="<?= $noDay ?>-<?= $noDetail ?>">
-                                                            <td><input value="<?= $detailPackage['id_object']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][id_object]" required readonly></td>
-                                                            <td><input value="<?= $detailPackage['activity_type']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_type]" readonly></td>
-                                                            <td><input value="<?= $detailPackage['activity_price']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_price]" readonly></td>
-                                                            <td><input value="<?= $detailPackage['description']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][description]" required readonly></td>
+                                                            <td><?= $no++; ?></td>
+                                                            <td class="d-none"><input value="<?= $detailPackage['id_object']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][id_object]" required></td>
+                                                            <td class="d-none"><input value="<?= $detailPackage['activity_type']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_type]"></td>
+                                                            <td class="d-none"><input value="<?= $detailPackage['activity_price']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_price]"></td>
+                                                            <td><input value="<?= $detailPackage['description']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][description]" required disabled></td>
 
                                                         </tr>
                                                         <?php $noDetail++ ?>

@@ -65,12 +65,18 @@ class DetailPackageModel extends Model
                 $atractionModel = new atractionModel();
                 $atractionId = substr($idObject, 1, 2);
                 $atractionPrice = $atractionModel->getAtraction($atractionId)->getFirstRow()->price;
+
                 $queryNew[$no]['activity_price'] = $atractionPrice != null ? $atractionPrice : 0;
             }
             if (substr($idObject, 0, 1) == 'H') {
                 $homestayModel = new homestayModel();
                 $homestayId = substr($idObject, 1, 2);
-                $homestayPrice = $homestayModel->getHomestay($homestayId)->getFirstRow()->price;
+                $homestay = $homestayModel->getHomestay($homestayId)->getFirstRow();
+                $homestayPrice = null;
+                if ($homestay) {
+                    $homestayPrice = $homestay->price;
+                }
+
                 $queryNew[$no]['activity_price'] = $homestayPrice != null ? $homestayPrice : 0;
             }
             $no++;
