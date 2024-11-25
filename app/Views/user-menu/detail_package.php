@@ -83,7 +83,13 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Capacity</td>
-                                        <td><?= esc($data['capacity']) ?> people</td>
+                                        <td><?php
+                                            if ($data['costum'] == 2) {
+                                                echo esc($data['capacity']) . ' people';
+                                            } else {
+                                                echo 'costum';
+                                            }
+                                            ?></td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Contact Person</td>
@@ -645,7 +651,13 @@
                                             </tr>
                                             <tr>
                                                 <td class="fw-bold">Maks Capacity</td>
-                                                <td><?= esc($data['capacity']) ?> people</td>
+                                                <td> <?php
+                                                        if ($data['costum'] == 2) {
+                                                            echo esc($data['capacity']) . ' people';
+                                                        } else {
+                                                            echo 'costum';
+                                                        }
+                                                        ?> </td>
                                             </tr>
                                             <tr>
                                                 <td class="fw-bold">Contact Person</td>

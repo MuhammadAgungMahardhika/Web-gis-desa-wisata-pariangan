@@ -69,17 +69,7 @@
                                     <label for="reservation_date" class="mb-2"> Package date</label>
                                     <input type="date" value="<?= $data['date'] ?>" id="reservation_date" name="reservationData[reservation_date]" class="form-control" required readonly>
                                 </div>
-                            <?php else : ?>
-                                <div class="form-group mb-4">
-                                    <label for="reservation_date" class="mb-2"> Select reservation date<span class="text-danger">*</span> <span class="text-primary">( H-7 )</span></label>
-                                    <input type="date" id="reservation_date" name="reservationData[reservation_date]" class="form-control" required>
-                                </div>
                             <?php endif;  ?>
-
-                            <div class="form-group mb-4">
-                                <label for="number_people" class="mb-2"> Number of people<span class="text-danger">*</span> <span class="text-primary"> ( Max <?= $data['capacity'] ?> people ) </span> </label>
-                                <input type="number" oninput="setPrice()" value="1" id="number_people" name="reservationData[number_people]" class="form-control" required>
-                            </div>
 
                             <div class="form-group mb-4">
                                 <label for="price" class="mb-2">Price <span class="text-danger">*</span></label>
