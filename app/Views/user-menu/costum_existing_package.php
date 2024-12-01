@@ -201,7 +201,7 @@
                                                         </thead>
                                                         <tbody id="body-detail-package-<?= $noDay ?>">
                                                             <script>
-                                                                let arrayPrice = []
+                                                                let arrayPrice = [];
                                                             </script>
                                                             <?php foreach ($packageDay['detailPackage'] as $detailPackage) : ?>
                                                                 <script>

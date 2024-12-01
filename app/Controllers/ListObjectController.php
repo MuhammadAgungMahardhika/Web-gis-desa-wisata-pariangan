@@ -37,6 +37,18 @@ class ListObjectController extends BaseController
         return view('user-menu/list_object', $data);
     }
 
+    public function all_main_marker()
+    {
+        $atraction = $this->modelAtraction->getAtractions();
+        $event = $this->modelEvent->getEvents();
+
+        $data['atData']  =  $atraction;
+        $data['atUrl'] = 'atraction';
+        $data['evData']  =  $event;
+        $data['evUrl'] = 'event';
+        return json_encode($data);
+    }
+
     public function atraction($id = null)
     {
         if ($id) {

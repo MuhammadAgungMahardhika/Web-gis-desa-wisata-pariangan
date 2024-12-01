@@ -73,6 +73,7 @@ $routes->group('user', function ($routes) {
 // Menu list Object
 $routes->group('list_object', function ($routes) {
     $routes->get('index', 'ListObjectController::index');
+    $routes->get('all_main_marker', 'ListObjectController::all_main_marker');
     $routes->get('/', 'ListObjectController::index');
     $routes->get('atraction', 'ListObjectController::atraction');
     $routes->get('atraction/(:segment)', 'ListObjectController::atraction/$1');

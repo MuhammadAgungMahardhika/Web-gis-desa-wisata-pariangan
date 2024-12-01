@@ -4,7 +4,7 @@
             <h5 class="card-title">Google Maps with Location</h5>
         </div>
         <div class="col-6 mb-4">
-            <a id="manualLocation" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Current Location" class="btn icon btn-primary mx-1" id="current-position" onclick="currentLocation()">
+            <a id="manualLocation" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Current Location" class="btn icon btn-primary mx-1" onclick="currentLocation()">
                 <span class="material-symbols-outlined">my_location</span>
             </a>
             <a id="currentLocation" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Set Manual Location" class="btn icon btn-primary mx-1" id="manual-position" onclick="manualLocation()">
@@ -15,6 +15,9 @@
                     <span class="material-symbols-outlined">visibility</span>
                 </a>
             </span>
+            <a id="viewAllMarker" data-bs-toggle="tooltip" data-bs-placement="bottom" title="view all marker" class="btn icon btn-primary mx-1" onclick="showAllMarker()">
+            <span class="material-symbols-outlined">select_all</span>
+            </a>
         </div>
         <div class="col-6"></div>
         <div class="col-6">

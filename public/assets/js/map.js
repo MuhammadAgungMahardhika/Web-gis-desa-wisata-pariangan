@@ -456,6 +456,32 @@ function showSupportModal(data, url) {
     },
   });
 }
+//looping all marker without panel
+function showAllMarker() {
+  $.ajax({
+    url: base_url + "/" + "list_object" + "/all_main_marker",
+    method: "get",
+    dataType: "json",
+    success: function (response) {
+      console.log(response);
+      const at = response.atData;
+      const atUrl = response.atUrl;
+      const ev = response.evData;
+      const evUrl = response.evUrl;
+
+      const data = [
+        {
+          data: [at, ev],
+          url: [atUrl, evUrl],
+        },
+      ];
+      loopingAllMarkers(data);
+
+      // map.panTo({ lat: parseInt(ev[i].lat), lng: parseInt(ev[i].lng) });
+    },
+    error: function (err) {},
+  });
+}
 //loping all marker
 function loopingAllMarker(datas, url) {
   showPanelList(datas, url); // show list panel
@@ -463,6 +489,25 @@ function loopingAllMarker(datas, url) {
     addMarkerToMap(datas[i], url);
   }
 }
+
+function loopingAllMarkers(dataArray) {
+  dataArray.forEach((item) => {
+    const { data, url } = item;
+    console.log(url);
+    // Panggil showPanelList dengan combine = true
+    showPanelList(data, url, true);
+
+    // Iterasi array data dan url
+    data.forEach((dataGroup, index) => {
+      const currentUrl = url[index]; // Ambil URL yang sesuai
+
+      dataGroup.forEach((dataItem) => {
+        addMarkerToMap(dataItem, currentUrl); // Tambahkan marker dengan URL yang sesuai
+      });
+    });
+  });
+}
+
 //user manual marker
 function manualLocation() {
   Swal.fire({
@@ -719,89 +764,155 @@ function infoMarkerData(data, url) {
 }
 
 // show list panel
-function showPanelList(datas, url) {
+function showPanelList(datas, url, combine = false) {
   $("#panel").css("max-height", "74vh");
   let listPanel = [];
-  // if object is empty
-  if (datas.length == 0) {
-    listPanel.push(
-      `<tr colspan="3"><td></td><td class="text-center">object not found!</td><td></td></tr>`
-    );
-  }
+  if (combine) {
+    let no = 0;
+    datas.forEach((element) => {
+      // Jika data kosong, tambahkan notifikasi
 
-  for (let i = 0; i < datas.length; i++) {
-    let data = datas[i];
-    let id = datas[i].id;
-    let name = datas[i].name;
-    let lat = datas[i].lat;
-    let lng = datas[i].lng;
-    listPanel.push(
-      `<tr><td>${i + 1}</td><td>${name} ${(() => {
-        if (url == "event") {
-          return `<br>${data.date_start}`;
-        } else {
-          return "";
-        }
-      })()}</td><td class="text-center"><button title="info on map" onclick="showInfoOnMap(${JSON.stringify(
-        data
-      )
-        .split('"')
-        .join("&quot;")},${JSON.stringify(url)
-        .split('"')
-        .join(
-          "&quot;"
-        )})" class="btn btn-primary btn-sm"><i class="fa fa-info fa-xs"></i></button> <button title="route" onclick="calcRoute(${lat},${lng})" class="btn btn-primary btn-sm"><i class="fa fa-road fa-xs"></i></button>${(() => {
-        if (url != "atraction" && url != "event") {
-          return ` <button title="detail" onclick="showSupportModal(${JSON.stringify(
-            data
-          )
+      element.forEach((data, i) => {
+        const { id, name, lat, lng, date_start } = data;
+        console.log(url[no]);
+        listPanel.push(
+          `<tr>
+            <td>${i + 1}</td>
+            <td>${name} ${url[no] === "event" ? `<br>${date_start}` : ""}</td>
+            <td class="text-center">
+              <button title="Info on map" onclick="showInfoOnMap(${JSON.stringify(
+                data
+              )
+                .split('"')
+                .join("&quot;")},${JSON.stringify(url[no])
             .split('"')
-            .join("&quot;")},${JSON.stringify(url)
-            .split('"')
-            .join(
-              "&quot;"
-            )})" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#supportModal"><i class="fa fa-eye fa-xs"></i></button>`;
-        } else {
-          return "";
-        }
-      })()}</td></tr>`
-    );
-  }
-  listPanel = listPanel.join("");
-  if (url == "atraction") {
+            .join("&quot;")})" class="btn btn-primary btn-sm">
+                <i class="fa fa-info fa-xs"></i>
+              </button>
+              <button title="Route" onclick="calcRoute(${lat},${lng})" class="btn btn-primary btn-sm">
+                <i class="fa fa-road fa-xs"></i>
+              </button>
+              ${
+                url[no] !== "atraction" && url[no] !== "event"
+                  ? `<button title="Detail" onclick="showSupportModal(${JSON.stringify(
+                      data
+                    )
+                      .split('"')
+                      .join("&quot;")},${JSON.stringify(url[no])
+                      .split('"')
+                      .join(
+                        "&quot;"
+                      )})" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#supportModal">
+                      <i class="fa fa-eye fa-xs"></i>
+                    </button>`
+                  : ""
+              }
+            </td>
+          </tr>`
+        );
+      });
+      no++;
+    });
+
+    // Gabungkan seluruh daftar setelah iterasi selesai
+    const combinedPanel = listPanel.join("");
     $("#panel").html(
-      `<div class="card-header"><h5 class="card-title text-center">Atraction</h5></div><div class="card-body"><table class="table table-border overflow-auto" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
+      `<div class="card-header"><h5 class="card-title text-center">All main object</h5></div>
+      <div class="card-body">
+        <table class="table table-border overflow-auto" width="100%">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">${combinedPanel}</tbody>
+        </table>
+      </div>`
     );
-  }
-  if (url == "event") {
-    $("#panel").html(
-      `<div class="card-header"><h5 class="card-title text-center">List event</h5></div><div class="card-body"><table class="table table-border overflow-auto" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
-    );
-  }
-  if (url == "culinary_place") {
-    $("#panel").append(
-      `<div class="card-header"><h5 class="card-title text-center">List culinary place</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
-    );
-  }
-  if (url == "souvenir_place") {
-    $("#panel").append(
-      `<div class="card-header"><h5 class="card-title text-center">List souvenir place</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
-    );
-  }
-  if (url == "worship_place") {
-    $("#panel").append(
-      `<div class="card-header"><h5 class="card-title text-center">List worship place</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
-    );
-  }
-  if (url == "facility") {
-    $("#panel").append(
-      `<div class="card-header"><h5 class="card-title text-center">List facility</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
-    );
-  }
-  if (url == "homestay") {
-    $("#panel").append(
-      `<div class="card-header"><h5 class="card-title text-center">List homestay</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
-    );
+  } else {
+    // if object is empty
+    if (datas.length == 0) {
+      listPanel.push(
+        `<tr colspan="3"><td></td><td class="text-center">object not found!</td><td></td></tr>`
+      );
+    }
+
+    for (let i = 0; i < datas.length; i++) {
+      let data = datas[i];
+      let id = datas[i].id;
+      let name = datas[i].name;
+      let lat = datas[i].lat;
+      let lng = datas[i].lng;
+      listPanel.push(
+        `<tr><td>${i + 1}</td><td>${name} ${(() => {
+          if (url == "event") {
+            return `<br>${data.date_start}`;
+          } else {
+            return "";
+          }
+        })()}</td><td class="text-center"><button title="info on map" onclick="showInfoOnMap(${JSON.stringify(
+          data
+        )
+          .split('"')
+          .join("&quot;")},${JSON.stringify(url)
+          .split('"')
+          .join(
+            "&quot;"
+          )})" class="btn btn-primary btn-sm"><i class="fa fa-info fa-xs"></i></button> <button title="route" onclick="calcRoute(${lat},${lng})" class="btn btn-primary btn-sm"><i class="fa fa-road fa-xs"></i></button>${(() => {
+          if (url != "atraction" && url != "event") {
+            return ` <button title="detail" onclick="showSupportModal(${JSON.stringify(
+              data
+            )
+              .split('"')
+              .join("&quot;")},${JSON.stringify(url)
+              .split('"')
+              .join(
+                "&quot;"
+              )})" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#supportModal"><i class="fa fa-eye fa-xs"></i></button>`;
+          } else {
+            return "";
+          }
+        })()}</td></tr>`
+      );
+    }
+    listPanel = listPanel.join("");
+    if (url == "atraction") {
+      $("#panel").html(
+        `<div class="card-header"><h5 class="card-title text-center">Atraction</h5></div><div class="card-body"><table class="table table-border overflow-auto" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
+      );
+    }
+    if (url == "event") {
+      $("#panel").html(
+        `<div class="card-header"><h5 class="card-title text-center">List event</h5></div><div class="card-body"><table class="table table-border overflow-auto" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
+      );
+    }
+    if (url == "culinary_place") {
+      $("#panel").append(
+        `<div class="card-header"><h5 class="card-title text-center">List culinary place</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
+      );
+    }
+    if (url == "souvenir_place") {
+      $("#panel").append(
+        `<div class="card-header"><h5 class="card-title text-center">List souvenir place</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
+      );
+    }
+    if (url == "worship_place") {
+      $("#panel").append(
+        `<div class="card-header"><h5 class="card-title text-center">List worship place</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
+      );
+    }
+    if (url == "facility") {
+      $("#panel").append(
+        `<div class="card-header"><h5 class="card-title text-center">List facility</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
+      );
+    }
+    if (url == "homestay") {
+      $("#panel").append(
+        `<div class="card-header"><h5 class="card-title text-center">List homestay</h5></div><div class="card-body"><table class="table table-border overflow-auto shadow" width="100%"><thead><tr><th>#</th><th>Name</th><th class="text-center">Action</th></tr></thead><tbody id="tbody">${listPanel}</tbody></table></div>`
+      );
+    }
   }
 }
 
