@@ -91,7 +91,7 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label for="capacity" class="mb-2">Capacity <span class="text-danger">*</span></label>
-                                <input type="text" id="capacity" class="form-control" name="capacity" placeholder="capacity" value="" required>
+                                <input type="text" oninput="setPrice()" id="capacity" class="form-control" name="capacity" placeholder="capacity" value="1" required>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="contact_person" class="mb-2">Contact Person</label>
@@ -365,7 +365,7 @@
 
     function setPrice() {
         let services = $('#service_package').val()
-        let numberPeople = parseInt($('#number_people').val())
+        let numberPeople = parseInt($('#capacity').val())
         let totalPrice = 0
 
         numberPeople = checkNumberPeople(numberPeople)
@@ -442,7 +442,7 @@
 
     }
 
-    function removeObject(noDay, noDetail, price) {
+    function removeObject(noDay, noDetail, objectId, objectPrice, generatedId) {
         $(`#${noDay}-${noDetail}`).remove()
         let current = $(`#lastNoDetail${noDay}`).val()
         $(`#lastNoDetail${noDay}`).val(current - 1)

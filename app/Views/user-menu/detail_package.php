@@ -83,13 +83,7 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Capacity</td>
-                                        <td><?php
-                                            if ($data['costum'] == 2) {
-                                                echo esc($data['capacity']) . ' people';
-                                            } else {
-                                                echo 'costum';
-                                            }
-                                            ?></td>
+                                        <td><?= esc($data['capacity']) . ' people'; ?></td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Contact Person</td>
@@ -651,13 +645,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="fw-bold">Maks Capacity</td>
-                                                <td> <?php
-                                                        if ($data['costum'] == 2) {
-                                                            echo esc($data['capacity']) . ' people';
-                                                        } else {
-                                                            echo 'costum';
-                                                        }
-                                                        ?> </td>
+                                                <td> <?= esc($data['capacity']) . ' people'; ?> </td>
                                             </tr>
                                             <tr>
                                                 <td class="fw-bold">Contact Person</td>
@@ -678,7 +666,7 @@
                     </div>
                     <div class="form-group mb-2">
                         <label for="number_people" class="mb-2"> Number of people </label>
-                        <input type="number" oninput="suitPrice()" value="1"  id="number_people" placeholder="maksimum capacity is <?= esc($data['capacity']) ?>" class="form-control" required >
+                        <input type="number" oninput="suitPrice()" value="<?= $data['costum'] != 2 ? $data['capacity'] : 1 ?>"  id="number_people" placeholder="maksimum capacity is <?= esc($data['capacity']) ?>" class="form-control" required <?= $data['costum'] != 2 ? 'readonly' : '' ?>>
                     </div>
                     <div class="form-group mb-2">
                         <label for="comment" class="mb-2"> Additional information </label>

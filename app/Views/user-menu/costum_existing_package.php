@@ -70,7 +70,10 @@
                                     <input type="date" value="<?= $data['date'] ?>" id="reservation_date" name="reservationData[reservation_date]" class="form-control" required readonly>
                                 </div>
                             <?php endif;  ?>
-
+                            <div class="form-group mb-4">
+                                <label for="number_people" class="mb-2"> Number of people<span class="text-danger">*</span> </label>
+                                <input type="number" oninput="setPrice()" value="1" id="number_people" name="number_people" class="form-control" required>
+                            </div>
                             <div class="form-group mb-4">
                                 <label for="price" class="mb-2">Price <span class="text-danger">*</span></label>
                                 <div class="input-group">
@@ -487,9 +490,6 @@
         } else if (numberPeople <= 0) {
             event.preventDefault();
             Swal.fire('Need 1 people at least', '', 'warning');
-        } else if (numberPeople > peopleMax) {
-            event.preventDefault();
-            Swal.fire(`Out of capacity, max ${peopleMax} only', '', 'warning`);
         }
     }
 

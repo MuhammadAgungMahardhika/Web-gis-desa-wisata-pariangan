@@ -71,6 +71,10 @@
                         <div class="card-body">
 
                             <div class="form-group mb-4">
+                                <label for="number_people" class="mb-2"> Number of people<span class="text-danger">*</span> </label>
+                                <input type="number" oninput="setPrice()" value="1" id="number_people" name="number_people" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-4">
                                 <label for="price" class="mb-2">Price </label>
                                 <div class="input-group">
                                     <span class="input-group-text">Rp </span>

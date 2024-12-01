@@ -211,7 +211,7 @@ class packageController extends BaseController
             'id' => $id_package,
             'name' => 'Costume Package By -' . $request['username'],
             'price' => empty($request['price']) ? "0" : $request['price'],
-            'capacity' => 100,
+            'capacity' => $request['number_people'],
             'url' => 'costum_package.jpg',
             'costum' => $request['reservationData']['costum'],
         ];
@@ -360,7 +360,7 @@ class packageController extends BaseController
             'id' => $id_package,
             'name' =>  $request['reservationData']['package_name'] . ' + Costum By -' . $request['username'],
             'price' => empty($request['price']) ? "0" : $request['price'],
-            'capacity' => 100,
+            'capacity' => $request['number_people'],
             'url' => 'costum_package.jpg',
             'costum' => $request['reservationData']['costum'],
         ];
