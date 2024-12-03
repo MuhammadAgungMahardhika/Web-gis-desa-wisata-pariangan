@@ -109,14 +109,14 @@
                                 <?php $i++; ?>
                             <?php endforeach; ?>
                         </div>
-                        <div class="col">
+                        <!-- <div class="col">
                             <p class="fw-bold">Service (Exclude)</p>
                             <?php $i = 1; ?>
                             <?php foreach ($data['servicesExclude'] as $service) : ?>
                                 <p class="px-1"><?= esc($i) . '. ' . esc($service); ?></p>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
-                        </div>
+                        </div> -->
                     </div>
                     <a href="<?= base_url('package/costumExisting') . '/' . $data['id'] ?>" class="btn btn-outline-primary mb-2">Extend this package</a>
                 </div>

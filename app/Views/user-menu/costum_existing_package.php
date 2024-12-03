@@ -86,8 +86,10 @@
                                 <label for="service_package" class="mb-2">Service Package </label>
                                 <select class="choices form-select multiple-remove" multiple="multiple" id="service_package" onchange="setPrice()">
                                     <?php foreach ($serviceData as $service) : ?>
+
                                         <?php $type =  $service['is_group'] == 0 ? " / person" : " / group";  ?>
                                         <?php if (in_array(esc($service['name']), $data['service_package'])) : ?>
+
                                             <option value="<?= esc(json_encode($service)); ?>" selected><?= esc($service['name']  . ' (' . $service['price'] . $type . ')'); ?></option>
                                             <!-- <option value="<?= esc($service['id']); ?>" selected><?= esc($service['name']); ?></option> -->
                                         <?php else : ?>
@@ -98,6 +100,11 @@
                                 </select>
                             </div>
                             <span id="service_package_form">
+                                <?php foreach ($serviceData as $service) : ?>
+                                    <?php if (in_array(esc($service['name']), $data['service_package'])) : ?>
+                                        <input type="hidden" name="service_package[]" value="<?= $service['id'] ?>" />
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
 
                             </span>
 
