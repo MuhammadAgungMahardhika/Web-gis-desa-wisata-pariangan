@@ -105,7 +105,6 @@
                                         <input type="hidden" name="service_package[]" value="<?= $service['id'] ?>" />
                                     <?php endif; ?>
                                 <?php endforeach; ?>
-
                             </span>
 
                             <div class="form-group mb-4">

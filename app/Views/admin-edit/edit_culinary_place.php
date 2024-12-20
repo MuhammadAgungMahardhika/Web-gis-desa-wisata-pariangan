@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="<?= base_url('assets/lib/filepond/filepond.css') ?>">
 <link rel="stylesheet" href="<?= base_url('assets/lib/filepond/filepond-plugin-media-preview.min.css') ?>">
 <link rel="stylesheet" href="<?= base_url('assets/lib/filepond/filepond-plugin-image-preview.css') ?>">
-
 <link rel="stylesheet" href="<?= base_url('assets/css/pages/form-element-select.css'); ?>">
 <style>
     .filepond--root {

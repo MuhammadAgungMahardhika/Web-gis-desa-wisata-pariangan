@@ -2,7 +2,6 @@
 <?= $this->section('head') ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 <style>
     input[type=date]::-webkit-inner-spin-button,
     input[type=date]::-webkit-calendar-picker-indicator {
@@ -184,47 +183,52 @@
                                 <?php if ($packageDayData) : ?>
                                     <?php foreach ($packageDayData as $packageDay) : ?>
                                         <div class="border shadow-sm p-4 mb-4 table-responsive">
-                                            <h3> Day <?= $noDay ?></h3>
-                                            <br>
+                                            <a class="btn btn-primary  btn-sm" data-bs-toggle="collapse" href="#collapseExample-<?= $noDay ?>" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                Day <?= $noDay ?>
+                                            </a>
+
+
                                             <?php $noDetail = 0; ?>
 
-                                            <a class="btn btn-primary btn-sm" href="#" title="Show Route" onclick="getObjects(<?= $noDay ?>)"><i class="fa fa-road me-2"></i> show route on map</a>
-                                            <table class="table table-sm table-border" id="table-day">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No </th>
-                                                        <th>Activities</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="body-detail-package-<?= $noDay ?>">
-                                                    <script>
-                                                        let arrayPrice = []
-                                                    </script>
-                                                    <?php $no = 1; ?>
-                                                    <?php foreach ($packageDay['detailPackage'] as $detailPackage) : ?>
+                                            <a class="btn btn-primary btn-sm" href="#" title="Show Route" onclick="getObjects(<?= $noDay ?>)"><i class="fa fa-road"></i> show route on map</a>
+                                            <div class="collapse" id="collapseExample-<?= $noDay ?>">
+                                                <table class="table table-sm table-border" id="table-day">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No </th>
+                                                            <th>Activities</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="body-detail-package-<?= $noDay ?>">
                                                         <script>
-                                                            arrayPrice.push({
-                                                                id: '<?= $detailPackage['id_object']  ?>',
-                                                                price: parseInt('<?= $detailPackage['activity_price']  ?>')
-                                                            })
+                                                            let arrayPrice = []
+                                                        </script>
+                                                        <?php $no = 1; ?>
+                                                        <?php foreach ($packageDay['detailPackage'] as $detailPackage) : ?>
+                                                            <script>
+                                                                arrayPrice.push({
+                                                                    id: '<?= $detailPackage['id_object']  ?>',
+                                                                    price: parseInt('<?= $detailPackage['activity_price']  ?>')
+                                                                })
+                                                            </script>
+
+                                                            <tr id="<?= $noDay ?>-<?= $noDetail ?>">
+                                                                <td><?= $no++; ?></td>
+                                                                <td class="d-none"><input value="<?= $detailPackage['id_object']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][id_object]" required></td>
+                                                                <td class="d-none"><input value="<?= $detailPackage['activity_type']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_type]"></td>
+                                                                <td class="d-none"><input value="<?= $detailPackage['activity_price']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_price]"></td>
+                                                                <td><input value="<?= $detailPackage['description']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][description]" required disabled></td>
+
+                                                            </tr>
+                                                            <?php $noDetail++ ?>
+                                                        <?php endforeach; ?>
+                                                        <script>
+                                                            $(`#lastNoDetail<?= $noDay ?>`).val(<?= $noDetail ?>)
                                                         </script>
 
-                                                        <tr id="<?= $noDay ?>-<?= $noDetail ?>">
-                                                            <td><?= $no++; ?></td>
-                                                            <td class="d-none"><input value="<?= $detailPackage['id_object']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][id_object]" required></td>
-                                                            <td class="d-none"><input value="<?= $detailPackage['activity_type']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_type]"></td>
-                                                            <td class="d-none"><input value="<?= $detailPackage['activity_price']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_price]"></td>
-                                                            <td><input value="<?= $detailPackage['description']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][description]" required disabled></td>
-
-                                                        </tr>
-                                                        <?php $noDetail++ ?>
-                                                    <?php endforeach; ?>
-                                                    <script>
-                                                        $(`#lastNoDetail<?= $noDay ?>`).val(<?= $noDetail ?>)
-                                                    </script>
-
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                         <?php $noDay++ ?>
                                     <?php endforeach; ?>
@@ -232,10 +236,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 </section>
