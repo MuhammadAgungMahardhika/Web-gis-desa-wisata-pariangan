@@ -207,14 +207,12 @@
                                                                     price: parseInt('<?= $detailPackage['activity_price']  ?>')
                                                                 })
                                                             </script>
-
                                                             <tr id="<?= $noDay ?>-<?= $noDetail ?>">
                                                                 <td class="pe-2"><?= $no++; ?></td>
                                                                 <td class="d-none"><input value="<?= $detailPackage['id_object']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][id_object]" required></td>
                                                                 <td class="d-none"><input value="<?= $detailPackage['activity_type']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_type]"></td>
                                                                 <td class="d-none"><input value="<?= $detailPackage['activity_price']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][activity_price]"></td>
                                                                 <td><input value="<?= $detailPackage['description']; ?>" class="form-control" name="packageDetailData[<?= $noDay ?>][detailPackage][<?= $noDetail ?>][description]" required disabled></td>
-
                                                             </tr>
                                                             <?php $noDetail++ ?>
                                                         <?php endforeach; ?>
