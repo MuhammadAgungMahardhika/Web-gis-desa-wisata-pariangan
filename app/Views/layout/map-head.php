@@ -1,9 +1,9 @@
 <div class="card-header">
     <div class="row align-items-center">
-        <div class="col-6">
+        <div class="col-4">
             <h5 class="card-title">Google Maps with Location</h5>
         </div>
-        <div class="col-6 mb-4">
+        <div class="col-8 mb-4 text-center">
             <a id="manualLocation" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Current Location" class="btn icon btn-primary mx-1" onclick="currentLocation()">
                 <span class="material-symbols-outlined">my_location</span>
             </a>
