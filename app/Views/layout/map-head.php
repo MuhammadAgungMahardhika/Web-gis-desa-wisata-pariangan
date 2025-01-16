@@ -20,18 +20,26 @@
             </a>
         </div>
         <div class="col-6"></div>
-        <div class="col-6">
-            <div class="input-group">
-                    <label class="input-group-text" for="area_geom">Area Level</label>
-                    <select class="form-select" id="area_geom" onchange="changeAreaGeom()">
-                        <option value="country">Country</option>
-                        <option value="province" selected>Province</option>
-                        <option value="city">City/Regency</option>
-                        <option value="subdistric">Sub District</option>
-                        <option value="village">Tourism Village</option>
-                    </select>
-            </div>
-        </div>
+        <?php 
+            $currentUrlPath = $_SERVER['REQUEST_URI'];  
+            if (strpos($currentUrlPath, 'detail') === false && strpos($currentUrlPath, 'manage_package') === false)
+            {
+                echo '
+                <div class="col-6">
+                    <div class="input-group">
+                        <label class="input-group-text" for="area_geom">Area Level</label>
+                        <select class="form-select" id="area_geom" onchange="changeAreaGeom()">
+                            <option value="country">Country</option>
+                            <option value="province" selected>Province</option>
+                            <option value="city">City/Regency</option>
+                            <option value="subdistrict">Sub District</option>
+                            <option value="village">Tourism Village</option>
+                        </select>
+                    </div>
+                </div>';
+            }
+        ?>
+
     </div>
 </div>
 <script>

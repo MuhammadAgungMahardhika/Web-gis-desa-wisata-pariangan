@@ -33,6 +33,8 @@
                                     </div>
                                     <div class="card-footer text-end" style="border: none;">
                                         <a role="button" class="btn btn-success" href="<?= base_url('package/detail') . '/' . $data->id; ?>">Detail</a>
+                                        <a role="button" class="btn btn-primary" href="<?= base_url('package/costumExisting') . '/' . $data->id; ?>">Extend</a>
+
                                     </div>
                                 </div>
                             </div>

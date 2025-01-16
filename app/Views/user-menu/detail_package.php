@@ -117,7 +117,7 @@
                             <?php endforeach; ?>
                         </div> -->
                     </div>
-                    <a href="<?= base_url('package/costumExisting') . '/' . $data['id'] ?>" class="btn btn-outline-primary mb-2">Extend this package</a>
+
                 </div>
             </div>
 

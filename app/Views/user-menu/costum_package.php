@@ -470,13 +470,13 @@
     function addPackageDay() {
         let packageDayDescription = $("#package-day-description").val()
         $("#package-day-container").append(`
-        <div class="border shadow-sm p-2 mb-2">
+        <div class="border shadow-sm p-2 mb-2" id="day-${noDay}">
         <span> Day </span>  <input type="text" value="${noDay}" name="packageDetailData[${noDay}][day]"  class="d-block" readonly> 
         <span> Object count </span> <input disabled value="0" type="text" id="lastNoDetail${noDay}" class="d-block">
         <span> Description </span>  <input value="${packageDayDescription}" name="packageDetailData[${noDay}][packageDayDescription]" class="d-block" >  
         <br>
         <br>
-       
+        <a class="btn btn-outline-danger btn-sm" onclick="deletePackageDay('${noDay}')"> <i class="fa fa-trash"> </i> </a>
         <a class="btn btn-outline-success btn-sm" onclick="openDetailPackageModal('${noDay}')" data-bs-toggle="modal" data-bs-target="#modalPackage"> <i class="fa fa-plus"> </i> </a>
          <a class="btn btn-primary btn-sm" href="#" title="Show Route" onclick="getObjects('${noDay}')"><i class="fa fa-road me-2"></i> show route on map</a>
         <table class="table table-border" id="table-day"> 
@@ -494,6 +494,11 @@
         </table>
         </div>`)
         noDay++
+    }
+
+    function deletePackageDay(noDay) {
+        console.log("day-" + noDay)
+        $(`#day-${noDay}`).remove()
     }
 
     function openDetailPackageModal(noDay) {
