@@ -46227,29 +46227,89 @@ function showSupportModal(data, url) {
 }
 //looping all marker without panel
 function showAllMarker() {
-  $.ajax({
-    url: base_url + "/" + "list_object" + "/all_main_marker",
-    method: "get",
-    dataType: "json",
-    success: function (response) {
-      console.log(response);
-      const at = response.atData;
-      const atUrl = response.atUrl;
-      const ev = response.evData;
-      const evUrl = response.evUrl;
+  let atractionCheck = $("#atractionCheck").prop("checked");
+  let eventCheck = $("#eventCheck").prop("checked");
+  let culinaryCheck = $("#culinaryCheck").prop("checked");
+  let worshipCheck = $("#worshipCheck").prop("checked");
+  let souvenirCheck = $("#souvenirCheck").prop("checked");
+  let facilityCheck = $("#facilityCheck").prop("checked");
+  let homestayCheck = $("#homestayCheck").prop("checked");
 
-      const data = [
-        {
-          data: [at, ev],
-          url: [atUrl, evUrl],
-        },
-      ];
-      loopingAllMarkers(data);
+  $("#panel").html("");
+  clearRoute();
+  clearMarker();
+  activeMenu("");
+  if (
+    !atractionCheck &&
+    !eventCheck &&
+    !culinaryCheck &&
+    !worshipCheck &&
+    !souvenirCheck &&
+    !facilityCheck &&
+    !homestayCheck
+  ) {
+    console.log("index");
 
-      // map.panTo({ lat: parseInt(ev[i].lat), lng: parseInt(ev[i].lng) });
-    },
-    error: function (err) {},
-  });
+    showUpcoming();
+  } else {
+    $.ajax({
+      url: base_url + "/" + "list_object" + "/all",
+      method: "get",
+      data: {
+        at: atractionCheck,
+        ev: eventCheck,
+        cp: culinaryCheck,
+        wp: worshipCheck,
+        sp: souvenirCheck,
+        f: facilityCheck,
+        h: homestayCheck,
+      },
+      dataType: "json",
+      success: function (response) {
+        if (response) {
+          // Add support marker
+          if (response.atData && response.atUrl) {
+            atData = response.atData;
+            atUrl = response.atUrl;
+            loopingAllMarker(atData, atUrl);
+          }
+          if (response.evData && response.evUrl) {
+            evData = response.evData;
+            evUrl = response.evtUrl;
+            loopingAllMarker(evData, evUrl);
+          }
+          if (response.cpData && response.cpUrl) {
+            cpData = response.cpData;
+            cpUrl = response.cpUrl;
+            loopingAllMarker(cpData, cpUrl);
+          }
+          if (response.spData && response.spUrl) {
+            spData = response.spData;
+            spUrl = response.spUrl;
+            loopingAllMarker(spData, spUrl);
+          }
+          if (response.wpData && response.wpUrl) {
+            wpData = response.wpData;
+            wpUrl = response.wpUrl;
+            loopingAllMarker(wpData, wpUrl);
+          }
+          if (response.fData && response.fUrl) {
+            fData = response.fData;
+            fUrl = response.fUrl;
+            loopingAllMarker(fData, fUrl);
+          }
+          if (response.hData && response.hUrl) {
+            hData = response.hData;
+            hUrl = response.hUrl;
+            loopingAllMarker(hData, hUrl);
+          }
+        }
+
+        // map.panTo({ lat: parseInt(ev[i].lat), lng: parseInt(ev[i].lng) });
+      },
+      error: function (err) {},
+    });
+  }
 }
 //loping all marker
 function loopingAllMarker(datas, url) {
@@ -46543,7 +46603,7 @@ function showPanelList(datas, url, combine = false) {
 
       element.forEach((data, i) => {
         const { id, name, lat, lng, date_start } = data;
-        console.log(url[no]);
+
         listPanel.push(
           `<tr>
             <td>${i + 1}</td>

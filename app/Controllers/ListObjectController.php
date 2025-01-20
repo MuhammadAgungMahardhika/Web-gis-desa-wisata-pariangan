@@ -37,16 +37,49 @@ class ListObjectController extends BaseController
         return view('user-menu/list_object', $data);
     }
 
-    public function all_main_marker()
+    public function all()
     {
-        $atraction = $this->modelAtraction->getAtractions();
-        $event = $this->modelEvent->getEvents();
+        $at = $_GET['at'];
+        $ev = $_GET['ev'];
+        $cp = $_GET['cp'];
+        $wp = $_GET['wp'];
+        $sp = $_GET['sp'];
+        $f =  $_GET['f'];
+        $h =  $_GET['h'];
 
-        $data['atData']  =  $atraction;
-        $data['atUrl'] = 'atraction';
-        $data['evData']  =  $event;
-        $data['evUrl'] = 'event';
-        return json_encode($data);
+        if ($at == 'true') {
+            $data['atData']  = $this->modelAtraction->getAtractions();
+            $data['atUrl'] = 'atraction';
+        }
+        if ($ev == 'true') {
+            $data['evData']  = $this->modelEvent->getEvents();
+            $data['evUrl'] = 'event';
+        }
+        if ($cp == 'true') {
+            $data['cpData']  = $this->modelCulinary->getCulinaryPlaces();
+            $data['cpUrl'] = 'culinary_place';
+        }
+        if ($wp == 'true') {
+            $data['wpData']  = $this->modelWorship->getWorshipPlaces();
+            $data['wpUrl'] = 'worship_place';
+        }
+        if ($sp == 'true') {
+            $data['spData']  = $this->modelSouvenir->getSouvenirPlaces();
+            $data['spUrl'] = 'souvenir_place';
+        }
+        if ($f == 'true') {
+            $data['fData']  =  $this->modelFacility->getFacilities();
+            $data['fUrl'] = 'facility';
+        }
+        if ($h == 'true') {
+            $data['hData']  = $this->modelHomestay->getHomestays();
+            $data['hUrl'] = 'homestay';
+        }
+        if ($data) {
+            return json_encode($data);
+        } else {
+            return json_encode('salah');
+        }
     }
 
     public function atraction($id = null)

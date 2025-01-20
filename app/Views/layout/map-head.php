@@ -4,20 +4,91 @@
             <h5 class="card-title">Google Maps with Location</h5>
         </div>
         <div class="col-8 mb-4 text-center">
+
+            <!-- manual location -->
             <a id="manualLocation" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Current Location" class="btn icon btn-primary mx-1" onclick="currentLocation()">
                 <span class="material-symbols-outlined">my_location</span>
             </a>
-            <a id="currentLocation" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Set Manual Location" class="btn icon btn-primary mx-1" id="manual-position" onclick="manualLocation()">
-                <span class="material-symbols-outlined">pin_drop</span>
-            </a>
+            <!-- current location -->
+             <a id="currentLocation" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Set Manual Location"   class="btn icon btn-primary mx-1" id="manual-position" onclick="manualLocation()">
+                  <span class="material-symbols-outlined">pin_drop</span>
+             </a>
+             <!-- Leggend button -->
             <span id="legendButton">
                 <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show Legend" class="btn icon btn-primary mx-1" id="legend-map" onclick="legend();">
                     <span class="material-symbols-outlined">visibility</span>
                 </a>
             </span>
-            <a id="viewAllMarker" data-bs-toggle="tooltip" data-bs-placement="bottom" title="view all marker" class="btn icon btn-primary mx-1" onclick="showAllMarker()">
-            <span class="material-symbols-outlined">select_all</span>
-            </a>
+
+  
+            <!-- dropdown view object -->
+            <div class="btn-group mx-1">
+                <div class="dropdown">
+                  <button class="btn icon btn-primary dropdown-toggle" title="show objects" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                   <span class="material-symbols-outlined">select_all</span>
+                  </button>
+                
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">               
+                          <div class="form-check">
+                            <div class="checkbox">
+                                <input type="checkbox" onchange="showAllMarker()" id="atractionCheck" class="form-check-input" >
+                                <label for="atractionCheck">Atraction</label>
+                              </div>
+                          </div>
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        <div class="form-check">
+                          <div class="checkbox">
+                              <input type="checkbox" onchange="showAllMarker()" id="eventCheck" class="form-check-input" >
+                              <label for="eventCheck">Event</label>
+                          </div>
+                        </div>
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        <div class="form-check">
+                          <div class="checkbox">
+                              <input type="checkbox" onchange="showAllMarker()" id="culinaryCheck" class="form-check-input" >
+                              <label for="culinaryCheck">Culinary place</label>
+                          </div>
+                        </div>
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        <div class="form-check">
+                          <div class="checkbox">
+                              <input type="checkbox" onchange="showAllMarker()" id="souvenirCheck" class="form-check-input" >
+                              <label for="souvenirCheck">Souvenir place</label>
+                          </div>
+                        </div>
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        <div class="form-check">
+                          <div class="checkbox">
+                              <input type="checkbox" onchange="showAllMarker()" id="worshipCheck" class="form-check-input" >
+                              <label for="worshipCheck">Worship place</label>
+                          </div>
+                        </div>
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        <div class="form-check">
+                          <div class="checkbox">
+                              <input type="checkbox" onchange="showAllMarker()" id="facilityCheck" class="form-check-input" >
+                              <label for="facilityCheck">Facility place</label>
+                          </div>
+                        </div>
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        <div class="form-check">
+                          <div class="checkbox">
+                              <input type="checkbox" onchange="showAllMarker()" id="homestayCheck" class="form-check-input" >
+                              <label for="homestayCheck">Homestay place</label>
+                          </div>
+                        </div>
+                      </a>
+                  </div>
+                </div>
+            </div>
         </div>
         <div class="col-6"></div>
         <?php 
