@@ -21,7 +21,7 @@
       </span>
       <!-- Leggend button -->
       <span>
-        <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show Legend" class="btn icon btn-primary mx-1" onclick="howToReachSumpu();">
+        <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="How to reach" class="btn icon btn-primary mx-1" onclick="howToReachSumpu();">
 
           <i style="height:1.72rem;width:1.5rem" class="fa-solid fa-person-walking-luggage"></i>
         </a>
