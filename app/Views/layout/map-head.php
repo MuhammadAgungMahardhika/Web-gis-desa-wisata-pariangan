@@ -20,8 +20,8 @@
         </a>
       </span>
       <!-- Leggend button -->
-      <span id="legendButton">
-        <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show Legend" class="btn icon btn-primary mx-1" id="legend-map" onclick="howToReachSumpu();">
+      <span>
+        <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show Legend" class="btn icon btn-primary mx-1" onclick="howToReachSumpu();">
 
           <i style="height:1.72rem;width:1.5rem" class="fa-solid fa-person-walking-luggage"></i>
         </a>
